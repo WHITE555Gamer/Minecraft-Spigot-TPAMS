@@ -5,5 +5,5 @@ https://www.curseforge.com/minecraft/bukkit-plugins/tpams/files
 
 
 You can watch before open sourced TPAMS below.
-https://github.com/WHITE555Gamer/Minecraft-Spigot-Old-TPAMS/blob/main/src/main/resources/plugin.yml
+https://github.com/WHITE555Gamer/Minecraft-Spigot-Old-TPAMS/
 It is toooooo bad code it has.
