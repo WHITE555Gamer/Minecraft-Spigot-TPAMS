@@ -44,6 +44,7 @@ public final class TPAMS extends JavaPlugin {
     public static @NonNls void setTPAMSActive(@NotNull Boolean bool) {
         isActive = bool;
     }
+
     /**
      * (Private Static)<br>
      * Get TPAMS Command is active or inactive boolean.<br>
@@ -56,66 +57,19 @@ public final class TPAMS extends JavaPlugin {
     }
 
     /**
-     * (Private Static Final)<br>
-     * TPAMS Command Label.<br>
-     * It uses getCommand.setExecutor in onEnable Method.
-     *
-     * @see TPAMSCommand
-     */
-    private static final @NonNls String TPAMS_COMMAND_LABEL = TPAMSCommand.commandName();
-    /**
-     * (Private Static Final)<br>
-     * Broadcast Message Command Label.<br>
-     * It uses getCommand.setExecutor in onEnable Method.
-     *
-     * @see BroadCastMessageCommand
-     */
-    private static final @NonNls String BROADCAST_MESSAGE_COMMAND_LABEL = BroadCastMessageCommand.commandName();
-    /**
-     * (Private Static Final)<br>
-     * Fly Command Label.<br>
-     * It uses getCommand.setExecutor in onEnable Method.
-     *
-     * @see FlyCommand
-     */
-    private static final @NonNls String FLY_COMMAND_LABEL = FlyCommand.commandName();
-    /**
-     * (Private Static Final)<br>
-     * Fly Speed Command Label.<br>
-     * It uses getCommand.setExecutor in onEnable Method.
-     *
-     * @see FlySpeedCommand
-     */
-    private static final @NonNls String FLY_SPEED_COMMAND_LABEL = FlySpeedCommand.commandName();
-    /**
-     * (Private Static Final)<br>
-     * Sneak Command Label.<br>
-     * It uses getCommand.setExecutor in onEnable Method.
-     *
-     * @see SneakCommand
-     */
-    private static final @NonNls String SNEAK_COMMAND_LABEL = SneakCommand.commandName();
-    /**
-     * (Private Static Final)<br>
-     * Old GameMode Command Label.<br>
-     * It uses getCommand.setExecutor in onEnable Method.
-     *
-     * @see OldGameModeCommand
-     */
-    private static final @NonNls String OLD_GAMEMODE_COMMAND = OldGameModeCommand.commandName();
-
-    /**
      * (Private Static)<br>
      * This Class's Instance.<br>
      * It can get with getInstance Method Only.
      */
-    private static TPAMS instance = new TPAMS();
+    private static TPAMS instance;
 
     /**
      * (Public)<br>
      * Public Constructor for Singleton.
+     * For Singleton, It needs Private Constructor but when run this plugin, the error message show "Cannot access TPAMS cause Private Constructor".
      */
-    private TPAMS() {
+    public TPAMS() {
+        instance = this;
     }
 
     /**
@@ -143,27 +97,31 @@ public final class TPAMS extends JavaPlugin {
      *         <li>OldGameModeCommand</li>
      *         <li>SneakCommand</li>
      *         <li>TPAMSCommand</li>
+     *         <li>WalkSpeedCommand</li>
      *     </ul>
      *     </li>
      *     <li></li>
      * </ul>
+     *
      * @see BroadCastMessageCommand
      * @see FlyCommand
      * @see FlySpeedCommand
      * @see OldGameModeCommand
      * @see SneakCommand
      * @see TPAMSCommand
+     * @see WalkSpeedCommand
      */
     @Override
     public void onEnable() {
         getLogger().info("Beginning Enable Plugin...");
 
-        getCommand(BROADCAST_MESSAGE_COMMAND_LABEL).setExecutor(BroadCastMessageCommand.getInstance());
-        getCommand(FLY_COMMAND_LABEL).setExecutor(FlyCommand.getInstance());
-        getCommand(FLY_SPEED_COMMAND_LABEL).setExecutor(FlySpeedCommand.getInstance());
-        getCommand(OLD_GAMEMODE_COMMAND).setExecutor(OldGameModeCommand.getInstance());
-        getCommand(SNEAK_COMMAND_LABEL).setExecutor(SneakCommand.getInstance());
-        getCommand(TPAMS_COMMAND_LABEL).setExecutor(TPAMSCommand.getInstance());
+        getCommand(BroadCastMessageCommand.commandName()).setExecutor(BroadCastMessageCommand.getInstance());
+        getCommand(FlyCommand.commandName()).setExecutor(FlyCommand.getInstance());
+        getCommand(FlySpeedCommand.commandName()).setExecutor(FlySpeedCommand.getInstance());
+        getCommand(OldGameModeCommand.commandName()).setExecutor(OldGameModeCommand.getInstance());
+        getCommand(SneakCommand.commandName()).setExecutor(SneakCommand.getInstance());
+        getCommand(TPAMSCommand.commandName()).setExecutor(TPAMSCommand.getInstance());
+        getCommand(WalkSpeedCommand.commandName()).setExecutor(WalkSpeedCommand.getInstance());
 
         getLogger().info("Finishing Enable Plugin...");
     }

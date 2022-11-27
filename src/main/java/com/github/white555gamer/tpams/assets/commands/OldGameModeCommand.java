@@ -56,8 +56,8 @@ public class OldGameModeCommand implements TabExecutor {
     private static OldGameModeCommand instance = new OldGameModeCommand();
 
     /**
-     * (Public)<br>
-     * Public Constructor for Singleton.
+     * (Private)<br>
+     * Private Constructor for Singleton.
      */
     private OldGameModeCommand() {
     }

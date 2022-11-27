@@ -16,8 +16,8 @@ import static com.github.white555gamer.tpams.assets.constants.ConstantProperty.*
 import static org.bukkit.Bukkit.getServer;
 
 /**
- * Fly Speed Command Class.<br>
- * This Class Controlling GameMode Using Old Style Command Operation.
+ * Sneak Command Class.<br>
+ * This Class Controlling Command Operation.
  *
  * @since Before 0.2.0-SNAPSHOT But Disabled.<br>(Reformed 0.2.0-ALPHA)
  */
@@ -50,8 +50,8 @@ public class SneakCommand implements TabExecutor {
     private static SneakCommand instance = new SneakCommand();
 
     /**
-     * (Public)<br>
-     * Public Constructor for Singleton.
+     * (Private)<br>
+     * Private Constructor for Singleton.
      */
     private SneakCommand() {
     }
@@ -130,11 +130,30 @@ public class SneakCommand implements TabExecutor {
      * @param player Player.
      */
     private static void sendEnableMessage(@NotNull CommandSender sender, @NotNull Player player) {
-        if (sender.getName() == player.getName()) {
-            sender.sendMessage("The sneak has been enabled.");
+        if (player.getLocale().equalsIgnoreCase(LOCALE_JAPANESE)) {
+            if (sender.getName() == player.getName()) {
+                sender.sendMessage("スニークが有効化されました。");
+            } else {
+                if (sender instanceof Player) {
+                    if (((Player) sender).getLocale().equalsIgnoreCase(LOCALE_JAPANESE)) {
+                        sender.sendMessage(player.getName() + "のスニークが有効化されました。");
+                        player.sendMessage("スニークが" + sender.getName() + "によって有効化されました。");
+                    } else {
+                        sender.sendMessage(player.getName() + "'s sneak has been enabled.");
+                        player.sendMessage("スニークが" + sender.getName() + "によって有効化されました。");
+                    }
+                } else {
+                    sender.sendMessage(player.getName() + "'s sneak has been enabled.");
+                    player.sendMessage("スニークが" + sender.getName() + "によって有効化されました。");
+                }
+            }
         } else {
-            sender.sendMessage(player.getName() + "'s sneak has been enabled.");
-            player.sendMessage("The sneak has been enabled by " + sender.getName() + ".");
+            if (sender.getName() == player.getName()) {
+                sender.sendMessage("The sneak has been enabled.");
+            } else {
+                sender.sendMessage(player.getName() + "'s sneak has been enabled.");
+                player.sendMessage("The sneak has been enabled by " + sender.getName() + ".");
+            }
         }
     }
     /**
@@ -145,11 +164,30 @@ public class SneakCommand implements TabExecutor {
      * @param player Player.
      */
     private static void sendDisableMessage(@NotNull CommandSender sender, @NotNull Player player) {
-        if (sender.getName() == player.getName()) {
-            sender.sendMessage("The sneak has been disabled.");
+        if (player.getLocale().equalsIgnoreCase(LOCALE_JAPANESE)) {
+            if (sender.getName() == player.getName()) {
+                sender.sendMessage("スニークが無効化されました。");
+            } else {
+                if (sender instanceof Player) {
+                    if (((Player) sender).getLocale().equalsIgnoreCase(LOCALE_JAPANESE)) {
+                        sender.sendMessage(player.getName() + "のスニークが無効化されました。");
+                        player.sendMessage("スニークが" + sender.getName() + "によって無効化されました。");
+                    } else {
+                        sender.sendMessage(player.getName() + "'s sneak has been disabled.");
+                        player.sendMessage("スニークが" + sender.getName() + "によって無効化されました。");
+                    }
+                } else {
+                    sender.sendMessage(player.getName() + "'s sneak has been disabled.");
+                    player.sendMessage("スニークが" + sender.getName() + "によって無効化されました。");
+                }
+            }
         } else {
-            sender.sendMessage(player.getName() + "'s sneak has been disabled.");
-            player.sendMessage("The sneak has been disabled by " + sender.getName() + ".");
+            if (sender.getName() == player.getName()) {
+                sender.sendMessage("The sneak has been disabled.");
+            } else {
+                sender.sendMessage(player.getName() + "'s sneak has been disabled.");
+                player.sendMessage("The sneak has been disabled by " + sender.getName() + ".");
+            }
         }
     }
     /**
@@ -160,7 +198,43 @@ public class SneakCommand implements TabExecutor {
      * @param player Player.
      */
     private static void sendToggleMessage(@NotNull CommandSender sender, @NotNull  Player player, @NotNull Boolean bool) {
-        if (sender.getName() == player.getName()) {
+        if (player.getLocale().equalsIgnoreCase(LOCALE_JAPANESE)) {
+            if (sender.getName() == player.getName()) {
+                if (bool) {
+                    sender.sendMessage("スニークが切り替えられました。現在: 有効");
+                } else {
+                    sender.sendMessage("スニークが切り替えられました。現在: 無効");
+                }
+            } else {
+                if (bool) {
+                    if (sender instanceof Player) {
+                        if (((Player) sender).getLocale().equalsIgnoreCase(LOCALE_JAPANESE)) {
+                            sender.sendMessage(player.getName() + "のスニークが切り替えられました。現在: 有効");
+                            player.sendMessage("スニークが" + sender.getName() + "によって切り替えられました。現在: 有効");
+                        } else {
+                            sender.sendMessage(player.getName() + "'s sneak has been toggled. Now: Enable");
+                            player.sendMessage("スニークが" + sender.getName() + "によって切り替えられました。現在: 有効");
+                        }
+                    } else {
+                        sender.sendMessage(player.getName() + "'s sneak has been toggled. Now: Enable");
+                        player.sendMessage("スニークが" + sender.getName() + "によって切り替えられました。現在: 有効");
+                    }
+                } else {
+                    if (sender instanceof Player) {
+                        if (((Player) sender).getLocale().equalsIgnoreCase(LOCALE_JAPANESE)) {
+                            sender.sendMessage(player.getName() + "のスニークが切り替えられました。現在: 無効");
+                            player.sendMessage("スニークが" + sender.getName() + "によって切り替えられました。現在: 無効");
+                        } else {
+                            sender.sendMessage(player.getName() + "'s sneak has been toggled. Now: Disable");
+                            player.sendMessage("スニークが" + sender.getName() + "によって切り替えられました。現在: 無効");
+                        }
+                    } else {
+                        sender.sendMessage(player.getName() + "'s sneak has been toggled. Now: Disable");
+                        player.sendMessage("スニークが" + sender.getName() + "によって切り替えられました。現在: 無効");
+                    }
+                }
+            }
+        } else if (sender.getName() == player.getName()) {
             if (bool) {
                 sender.sendMessage("The sneak has been toggled. Now: Enable");
             } else {
@@ -185,16 +259,40 @@ public class SneakCommand implements TabExecutor {
      */
     private static void sendGetBooleanMessage(@NotNull CommandSender sender, @NotNull Player player, @NotNull Boolean bool) {
         if (sender.getName() == player.getName()) {
-            if (bool) {
-                sender.sendMessage("Sneak: Enable");
+            if (player.getLocale().equalsIgnoreCase(LOCALE_JAPANESE)) {
+                if (bool) {
+                    sender.sendMessage("スニーク: 有効");
+                } else {
+                    sender.sendMessage("スニーク: 無効");
+                }
             } else {
-                sender.sendMessage("Sneak: Disable");
+                if (bool) {
+                    sender.sendMessage("Sneak: Enable");
+                } else {
+                    sender.sendMessage("Sneak: Disable");
+                }
             }
         } else {
-            if (bool) {
-                sender.sendMessage(player.getName() + "'s Sneak: Enable");
+            if (sender instanceof Player) {
+                if (((Player) sender).getLocale().equalsIgnoreCase(LOCALE_JAPANESE)) {
+                    if (bool) {
+                        sender.sendMessage(player.getName() + "のスニーク: 有効");
+                    } else {
+                        sender.sendMessage(player.getName() + "のスニーク: 無効");
+                    }
+                } else {
+                    if (bool) {
+                        sender.sendMessage(player.getName() + "'s Sneak: Enable");
+                    } else {
+                        sender.sendMessage(player.getName() + "'s Sneak: Disable");
+                    }
+                }
             } else {
-                sender.sendMessage(player.getName() + "'s Sneak: Disable");
+                if (bool) {
+                    sender.sendMessage(player.getName() + "'s Sneak: Enable");
+                } else {
+                    sender.sendMessage(player.getName() + "'s Sneak: Disable");
+                }
             }
         }
     }

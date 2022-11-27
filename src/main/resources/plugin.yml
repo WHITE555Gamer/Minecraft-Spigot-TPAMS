@@ -23,7 +23,7 @@ commands:
       This command allows you to fly without creative or spectator mode.
   flyspeed:
     usage: |
-      /flyspeed < Player > < reset | set | min | max | zero | add | sub | getspeed >
+      /flyspeed < Player > < default | reset | set | min | max | zero | add | sub | getspeed >
     description: |
       This command allows you to set flight speed.
   oldgamemode:
@@ -44,3 +44,8 @@ commands:
       /tpams ping
     description: |
       This command allows you to change or see TPAMS settings and more.
+  walkspeed:
+    usage: |
+      /walkspeed < Player > < default | reset | set | min | max | zero | add | sub | getspeed >
+    description: |
+      This command allows you to set walk speed.

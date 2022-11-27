@@ -6,7 +6,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.TabExecutor;
-import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -18,6 +17,12 @@ import static com.github.white555gamer.tpams.assets.constants.ConstantProperty.E
 import static com.github.white555gamer.tpams.assets.constants.ConstantProperty.ERROR_PLAYER_NON_EXECUTABLE_MESSAGE;
 import static org.bukkit.ChatColor.*;
 
+/**
+ * TPAMS Command Class.<br>
+ * This Class Controlling Command Operation.
+ *
+ * @since 0.2.0-SNAPSHOT<br>(Partially 0.1.5-RELEASE & 0.1.6-ALPHA)
+ */
 public class TPAMSCommand implements TabExecutor {
 
     /**
@@ -48,8 +53,8 @@ public class TPAMSCommand implements TabExecutor {
     private static TPAMSCommand instance = new TPAMSCommand();
 
     /**
-     * (Public)<br>
-     * Public Constructor for Singleton.
+     * (Private)<br>
+     * Private Constructor for Singleton.
      */
     private TPAMSCommand() {
     }
@@ -127,6 +132,12 @@ public class TPAMSCommand implements TabExecutor {
      * No localization is required as it is used only internally.
      */
     private static final @NonNls String TPAMS_COMMAND_NAME = TPAMSCommand.commandName();
+    /**
+     * (Private Static Final)<br>
+     * WalkSpeed Command Name String Label.<br>
+     * No localization is required as it is used only internally.
+     */
+    private static final @NonNls String WALKSPEED_COMMAND_NAME = WalkSpeedCommand.commandName();
 
     /**
      * (Private Static Final)<br>
@@ -200,6 +211,15 @@ public class TPAMSCommand implements TabExecutor {
             "/tpams test\n" +
             YELLOW + "description" + RESET + ": |\n" +
             "This command allows you to change or see TPAMS settings and more.";
+    /**
+     * (Private Static Final)<br>
+     * WalkSpeed Command Help String.<br>
+     * No localization is required.
+     */
+    private static final @NonNls String WALKSPEED_COMMAND_HELP = YELLOW + "usage" + RESET + ": |\n" +
+            "/walkspeed < Player > < reset | set | min | max | zero | add | sub | getspeed >\n" +
+            YELLOW + "description" + RESET + ": |\n" +
+            "This command allows you to set walk speed.";
 
     /**
      * (Private Static Final)<br>
@@ -509,7 +529,7 @@ public class TPAMSCommand implements TabExecutor {
      */
     private static final @NonNls List<String> TPAMS_COMMANDS_LIST =
             ImmutableList.of(BROADCASTMESSAGE_COMMAND_NAME, FLY_COMMAND_NAME, FLYSPEED_COMMAND_NAME, OLDGAMEMODE_COMMAND_NAME, SNEAK_COMMAND_NAME,
-                    TPAMS_COMMAND_NAME);
+                    TPAMS_COMMAND_NAME, WALKSPEED_COMMAND_NAME);
     /**
      * (Private Static Final)<br>
      * TPAMS Versions List.<br>
@@ -549,9 +569,6 @@ public class TPAMSCommand implements TabExecutor {
             case 1:
                 if (args[0].equalsIgnoreCase(ARGS_LABEL_PING)) {
                     sender.sendMessage("[TPAMS] Pong!");
-                    if (sender instanceof Player) {
-                        sender.sendMessage(((Player) sender).getAddress().toString());
-                    }
                 } else {
                     sender.sendMessage(ERROR_NON_CORRECT_ARGS_MESSAGE);
                 }
@@ -571,6 +588,8 @@ public class TPAMSCommand implements TabExecutor {
                             sender.sendMessage("Sneak Command Status: " + transBoolean2Active(SneakCommand.getActive()));
                         } else if (args[1].equalsIgnoreCase(TPAMS_COMMAND_NAME)) {
                             sender.sendMessage("TPAMS All Command Status: " + transBoolean2Active(TPAMS.getTPAMSActive()));
+                        } else if (args[1].equalsIgnoreCase(WALKSPEED_COMMAND_NAME)) {
+                            sender.sendMessage("WalkSpeed Command Status: " + transBoolean2Active(WalkSpeedCommand.getActive()));
                         } else {
                             sender.sendMessage(ERROR_NON_CORRECT_ARGS_MESSAGE);
                         }
@@ -591,6 +610,8 @@ public class TPAMSCommand implements TabExecutor {
                         sender.sendMessage(SNEAK_COMMAND_HELP);
                     } else if (args[1].equalsIgnoreCase(TPAMS_COMMAND_NAME)) {
                         sender.sendMessage(TPAMS_COMMAND_HELP);
+                    } else if (args[1].equalsIgnoreCase(WALKSPEED_COMMAND_NAME)) {
+                        sender.sendMessage(WALKSPEED_COMMAND_HELP);
                     } else {
                         sender.sendMessage(ERROR_NON_CORRECT_ARGS_MESSAGE);
                     }
@@ -624,6 +645,9 @@ public class TPAMSCommand implements TabExecutor {
                         } else if (args[1].equalsIgnoreCase(TPAMS_COMMAND_NAME)) {
                             TPAMS.setTPAMSActive(isActive);
                             sender.sendMessage("TPAMS All Command Status: " + transBoolean2Active(TPAMS.getTPAMSActive()));
+                        } else if (args[1].equalsIgnoreCase(WALKSPEED_COMMAND_NAME)) {
+                            WalkSpeedCommand.setActive(isActive);
+                            sender.sendMessage("WalkSpeed Command Status: " + transBoolean2Active(WalkSpeedCommand.getActive()));
                         } else {
                             sender.sendMessage(ERROR_NON_CORRECT_ARGS_MESSAGE);
                         }
@@ -718,17 +742,19 @@ public class TPAMSCommand implements TabExecutor {
                         } else {
                             sendPageNotFoundMessage(sender, TPAMSVersions.Version020Alpha.page);
                         }
+                    } else {
+                        sender.sendMessage(ERROR_NON_CORRECT_ARGS_MESSAGE);
                     }
-                    sender.sendMessage(ERROR_NON_CORRECT_ARGS_MESSAGE);
                     return true;
 
                 } else {
                     sender.sendMessage(ERROR_NON_CORRECT_ARGS_MESSAGE);
                     return true;
                 }
-
+            default:
+                sender.sendMessage(ERROR_NON_CORRECT_ARGS_MESSAGE);
+                return true;
         }
-        return true;
     }
 
     /**

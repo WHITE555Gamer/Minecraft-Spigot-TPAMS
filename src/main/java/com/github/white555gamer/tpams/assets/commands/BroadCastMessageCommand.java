@@ -51,8 +51,8 @@ public class BroadCastMessageCommand implements TabExecutor {
     private static BroadCastMessageCommand instance = new BroadCastMessageCommand();
 
     /**
-     * (Public)<br>
-     * Public Constructor for Singleton.
+     * (Private)<br>
+     * Private Constructor for Singleton.
      */
     private BroadCastMessageCommand() {
     }

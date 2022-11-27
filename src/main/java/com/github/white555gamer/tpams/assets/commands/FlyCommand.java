@@ -52,8 +52,8 @@ public class FlyCommand implements TabExecutor {
     private static FlyCommand instance = new FlyCommand();
 
     /**
-     * (Public)<br>
-     * Public Constructor for Singleton.
+     * (Private)<br>
+     * Private Constructor for Singleton.
      */
     private FlyCommand() {
     }
