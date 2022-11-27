@@ -49,6 +49,32 @@ public class FlySpeedCommand implements TabExecutor {
 
     /**
      * (Private Static)<br>
+     * This Class's Instance.<br>
+     * It can get with getInstance Method Only.
+     */
+    private static FlySpeedCommand instance = new FlySpeedCommand();
+
+    /**
+     * (Public)<br>
+     * Public Constructor for Singleton.
+     */
+    private FlySpeedCommand() {
+    }
+
+    /**
+     * (Public)<br>
+     * Getter.<br>
+     * This Method allows to you to get FlySpeedCommand's instance.
+     *
+     * @return FlySpeedCommand's Singleton Instance.
+     * @see FlySpeedCommand
+     */
+    public static FlySpeedCommand getInstance() {
+        return instance;
+    }
+
+    /**
+     * (Private Static)<br>
      * Command is active or inactive boolean.<br>
      * It uses getActive/setActive.
      *

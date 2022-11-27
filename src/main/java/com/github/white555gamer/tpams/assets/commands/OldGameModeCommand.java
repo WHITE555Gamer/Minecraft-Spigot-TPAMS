@@ -29,7 +29,7 @@ import static org.bukkit.GameMode.*;
 public class OldGameModeCommand implements TabExecutor {
 
     /**
-     * (Public Static)<br>
+     * (Public Static Final)<br>
      * This Class's Name.
      *
      * @return This Class Name.
@@ -39,13 +39,39 @@ public class OldGameModeCommand implements TabExecutor {
     }
 
     /**
-     * (Public Static)<br>
+     * (Public Static Final)<br>
      * This Class's Command Name.
      *
      * @return This Class's Command Name.
      */
     public static final @NonNls String commandName() {
         return "oldgamemode";
+    }
+
+    /**
+     * (Private Static)<br>
+     * This Class's Instance.<br>
+     * It can get with getInstance Method Only.
+     */
+    private static OldGameModeCommand instance = new OldGameModeCommand();
+
+    /**
+     * (Public)<br>
+     * Public Constructor for Singleton.
+     */
+    private OldGameModeCommand() {
+    }
+
+    /**
+     * (Public)<br>
+     * Getter.<br>
+     * This Method allows to you to get OldGameModeCommand's instance.
+     *
+     * @return OldGameModeCommand's Singleton Instance.
+     * @see OldGameModeCommand
+     */
+    public static OldGameModeCommand getInstance() {
+        return instance;
     }
 
     /**

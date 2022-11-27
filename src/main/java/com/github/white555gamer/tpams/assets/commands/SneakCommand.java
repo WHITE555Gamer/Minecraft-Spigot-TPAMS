@@ -44,6 +44,32 @@ public class SneakCommand implements TabExecutor {
 
     /**
      * (Private Static)<br>
+     * This Class's Instance.<br>
+     * It can get with getInstance Method Only.
+     */
+    private static SneakCommand instance = new SneakCommand();
+
+    /**
+     * (Public)<br>
+     * Public Constructor for Singleton.
+     */
+    private SneakCommand() {
+    }
+
+    /**
+     * (Public)<br>
+     * Getter.<br>
+     * This Method allows to you to get SneakCommand's instance.
+     *
+     * @return SneakCommand's Singleton Instance.
+     * @see SneakCommand
+     */
+    public static SneakCommand getInstance() {
+        return instance;
+    }
+
+    /**
+     * (Private Static)<br>
      * Command is active or inactive boolean.<br>
      * It uses getActive/setActive.
      *

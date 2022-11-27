@@ -41,6 +41,32 @@ public class TPAMSCommand implements TabExecutor {
     }
 
     /**
+     * (Private Static)<br>
+     * This Class's Instance.<br>
+     * It can get with getInstance Method Only.
+     */
+    private static TPAMSCommand instance = new TPAMSCommand();
+
+    /**
+     * (Public)<br>
+     * Public Constructor for Singleton.
+     */
+    private TPAMSCommand() {
+    }
+
+    /**
+     * (Public)<br>
+     * Getter.<br>
+     * This Method allows to you to get TPAMSCommand's instance.
+     *
+     * @return TPAMSCommand's Singleton Instance.
+     * @see TPAMSCommand
+     */
+    public static TPAMSCommand getInstance() {
+        return instance;
+    }
+
+    /**
      * (Private Static Final)<br>
      * Active String Label.<br>
      * No localization is required as it is used only internally.
@@ -115,28 +141,58 @@ public class TPAMSCommand implements TabExecutor {
      */
     private static final @NonNls String ARGS_LABEL_FALSE = "false";
 
+    /**
+     * (Private Static Final)<br>
+     * BroadCastMessage Command Help String.<br>
+     * No localization is required.
+     */
     private static final @NonNls String BROADCASTMESSAGE_COMMAND_HELP = YELLOW + "usage" + RESET + ": \n" +
             "/broadcastmessage Hello!\n" +
             "/broadcastmessage Hello World!\n" +
             YELLOW + "description" + RESET + ": \n" +
             "This command allows you to broadcast message.\n" +
             "It is intended for use from Server console.";
+    /**
+     * (Private Static Final)<br>
+     * Fly Command Help String.<br>
+     * No localization is required.
+     */
     private static final @NonNls String FLY_COMMAND_HELP = YELLOW + "usage" + RESET + ": |\n" +
             "/fly < Player > < true | false | toggle | getboolean >\n" +
             YELLOW + "description" + RESET + ": | \n" +
             "This command allows you to fly without creative or spectator mode.";
+    /**
+     * (Private Static Final)<br>
+     * FlySpeed Command Help String.<br>
+     * No localization is required.
+     */
     private static final @NonNls String FLYSPEED_COMMAND_HELP = YELLOW + "usage" + RESET + ": |\n" +
             "/flyspeed < Player > < reset | set | min | max | zero | add | sub | getspeed >\n" +
             YELLOW + "description" + RESET + ": |\n" +
             "This command allows you to set flight speed.";
+    /**
+     * (Private Static Final)<br>
+     * OldGameMode Command Help String.<br>
+     * No localization is required.
+     */
     private static final @NonNls String OLDGAMEMODE_COMMAND_HELP = YELLOW + "usage" + RESET + ": |\n" +
             "/oldgamemode < 0 | 1 | 2 | 3 | s | c | a | sp > < Player >\n" +
             YELLOW + "description" + RESET + ": | \n" +
             "This command allows you to change game mode using old style command.";
+    /**
+     * (Private Static Final)<br>
+     * Sneak Command Help String.<br>
+     * No localization is required.
+     */
     private static final @NonNls String SNEAK_COMMAND_HELP = YELLOW + "usage" + RESET + ": |\n" +
             "/sneak < Player > < true | false | toggle | getboolean >\n" +
             YELLOW + "description" + RESET + ": |\n" +
             "This command allows you to change sneak mode.";
+    /**
+     * (Private Static Final)<br>
+     * TPAMS Command Help String.<br>
+     * No localization is required.
+     */
     private static final @NonNls String TPAMS_COMMAND_HELP = YELLOW + "usage" + RESET + ": |\n" +
             "/tpams active < TPAMS Command > < true | false > \n" +
             "/tpams help < TPAMS Command >\n" +
@@ -145,39 +201,74 @@ public class TPAMSCommand implements TabExecutor {
             YELLOW + "description" + RESET + ": |\n" +
             "This command allows you to change or see TPAMS settings and more.";
 
+    /**
+     * (Private Static Final)<br>
+     * TPAMS ChangeLog Version 0.0.1-Alpha Page 1 String.<br>
+     * No localization is required.
+     */
     private static final @NonNls String TPAMS_CHAMGELOG_VERSION001ALPHA_PAGE1 =
             "----------   0.0.1-ALPHA ChangeLog   PAGE   1 / 1 ----------\n" +
                     "TPAMS - 0.0.1 - ALPHA has 2 commands.\n/fly <playername>\n/ heel <playername>\n" +
                     "The command can't be used from the server side. And command message is Japanese. It'll be support for English later. (By Google Translate)";
+    /**
+     * (Private Static Final)<br>
+     * TPAMS ChangeLog Version 0.0.1-Beta Page 2 String.<br>
+     * No localization is required.
+     */
     private static final @NonNls String TPAMS_CHANGELOG_VERSION001BETA_PAGE1 =
             "----------   0.0.1-BETA ChangeLog   PAGE   1 / 2 ----------\n" +
                     "With this update, various commands can be set.\nTPAMS - 0.0.1 - ALPHA only allows to set enabled when using the fly command.\n" +
                     "Now you can enable/disable with \"/fly < true | false >\". Also, when set true, you can set the flight speed like \"/fly true <flyspeed>\"." +
                     "The heel command was a one-way street, just like the previous version of the plug-in, setting it to maximum health, \n" +
                     "but now it can be set or added using \"/ heel <set | add>\" to decide. \"set\" can be specified in the range of 0.0 to 20.0.";
+    /**
+     * (Private Static Final)<br>
+     * TPAMS ChangeLog Version 0.0.1-Beta Page 2 String.<br>
+     * No localization is required.
+     */
     private static final @NonNls String TPAMS_CHANGELOG_VERSION001BETA_PAGE2 =
             "----------   0.0.1-BETA ChangeLog   PAGE   2 / 2 ----------\n" +
                     "When adding, you can specify a number in addition to the original health. It is an experimental command because it is not clear what this number needs to be. \n" +
                     "However, if you use \"add\" to get a value greater than 20.0, the value is expected to be 20.0.\n" +
                     "This is because even large numbers can depend on the player's default maximum health.";
+    /**
+     * (Private Static Final)<br>
+     * TPAMS ChangeLog Version 0.0.2-Alpha Page 1 String.<br>
+     * No localization is required.
+     */
     private static final @NonNls String TPAMS_CHANGELOG_VERSION002ALPHA_PAGE1 =
             "----------   0.0.2-ALPHA ChangeLog   PAGE   1 / 2 ----------\n" +
                     "This update addresses an issue where Heel & Fly was not available in previous beta versions.\n\n" +
                     "The important change is that in this update, the heel has been changed to a dedicated command that allows you to quickly recover\n" +
                     "with \"/ heel me\". The health setting command is now \"/ health\".\n\n" +
                     "In addition, the operation of the \"/ fly\" command has been changed to enable / disable only.";
+    /**
+     * (Private Static Final)<br>
+     * TPAMS ChangeLog Version 0.0.2-Alpha Page 2 String.<br>
+     * No localization is required.
+     */
     private static final @NonNls String TPAMS_CHANGELOG_VERSION002ALPHA_PAGE2 =
             "----------   0.0.2-ALPHA ChangeLog   PAGE   2 / 2 ----------\n" +
                     "Speed changes at \"/ fly\" have been moved to \"/ fly_speed\".\n" +
                     "Also, \"/ walk_speed\" has been added as the same speed change, so you can change the walking speed.\n" +
                     "<Command>\n/ Flight <true | false> <speed>\n→ / fly <true | false>\nNewcomer\n→ / fly_speed <~ 1.0>\nNewcomer\n" +
                     "→ / walk_speed <~ 1.0>\nNewcomer\n→ Health <Set | Add> <Number>\n/ Heel <set | add> <number>\n→ / heel me ";
+    /**
+     * (Private Static Final)<br>
+     * TPAMS ChangeLog Version 0.0.2-Beta Page 1 String.<br>
+     * No localization is required.
+     */
     private static final @NonNls String TPAMS_CHANGELOG_VERSION002BETA_PAGE1 =
             "----------   0.0.2-BETA ChangeLog   PAGE   1 / 1 ----------\n" +
                     "This plugin adds \"reset\" to \"/ walk_speed\", along with the stability improvements of the previous alpha plugin.\n" +
                     "In addition, the problem that does not work unless it is \"/ heel me\" has been resolved, and it now works with \"/ heel\".\n" +
                     "We have also officially implemented a secretly updated loading message.\n\n" +
                     "<Commands>\n/ walk_speed <~ 1.0>\n→ / walk_speed <~ 1.0 | reset>\n/ heel me\n→ / heel";
+    /**
+     * (Private Static Final)<br>
+     * TPAMS ChangeLog Version 0.0.3-SnapShot Page 1 String.<br>
+     * No localization is required.
+     */
     private static final @NonNls String TPAMS_CHANGELOG_VERSION003SNAPSHOT_PAGE1 =
             "----------   0.0.3-SNAPSHOT ChangeLog   PAGE   1 / 3 ----------\n" +
                     "This is just a snapshot of the next implementation.\n" +
@@ -185,29 +276,54 @@ public class TPAMSCommand implements TabExecutor {
                     "This version implements \"config.yml\". It has existed from previous versions, but you can actually change the settings from this version. In this version,\n" +
                     "you can set a message when a member enters the server. Also, you can set and send a message during \"advancement\". If you know about this \"advancement\"," +
                     "please let me know.";
+    /**
+     * (Private Static Final)<br>
+     * TPAMS ChangeLog Version 0.0.3-SnapShot Page 2 String.<br>
+     * No localization is required.
+     */
     private static final @NonNls String TPAMS_CHANGELOG_VERSION003SNAPSHOT_PAGE2 =
             "----------   0.0.3-SNAPSHOT ChangeLog   PAGE   2 / 3 ----------\n" +
                     "Also, \"advancement\" does not have a function to send a message to the whole.\n" +
                     "The \"Join\" and \"advancement\" messages are set to \"false\" by default.\n" +
                     "If you change it to \"true\" in the text editor, the process will be executed. You can also make advanced settings for the message.";
+    /**
+     * (Private Static Final)<br>
+     * TPAMS ChangeLog Version 0.0.3-SnapShot Page 3 String.<br>
+     * No localization is required.
+     */
     private static final @NonNls String TPAMS_CHANGELOG_VERSION003SNAPSHOT_PAGE3 =
             "----------   0.0.3-SNAPSHOT ChangeLog   PAGE   3 / 3 ----------\n" +
                     "Replacement using detailed \"replace\" is now possible, so messages can be rewritten according to variables using \"/ player /\", [/ server /], etc.\n" +
                     "In addition, you can now change using the game mode numbers used in previous versions of Minecraft. If you use this, use \"/ oldGM <number>\".\n" +
                     "Also implemented a secret command error statement. This is to make it easier to understand the errors caused by not changing the command statement each time.\n" +
                     "\n<commands>\nnew\n→/oldGM <number>";
+    /**
+     * (Private Static Final)<br>
+     * TPAMS ChangeLog Version 0.0.3-Alpha Page 1 String.<br>
+     * No localization is required.
+     */
     private static final @NonNls String TPAMS_CHANGELOG_VERSION003ALPHA_PAGE1 =
             "----------   0.0.3-ALPHA ChangeLog   PAGE   1 / 3 ----------\n" +
                     "This TPAMS does not inherit the functionality of previous snapshots.\n" +
                     "Also, config.yml is generated, but it doesn't affect the configuration at all. Also, from this time,\n" +
                     "we decided to temporarily separate the English and Japanese versions.\n" +
                     "You can now also determine who has operator authority, and all commands can only be run by the operator.";
+    /**
+     * (Private Static Final)<br>
+     * TPAMS ChangeLog Version 0.0.3-Alpha Page 2 String.<br>
+     * No localization is required.
+     */
     private static final @NonNls String TPAMS_CHANGELOG_VERSION003ALPHA_PAGE2 =
             "----------   0.0.3-ALPHA ChangeLog   PAGE   2 / 3 ----------\n" +
                     "This update allows TPAMS to execute more commands. Previously, you couldn't set \"food level\" just by setting your physical strength, but now you can.\n" +
                     "You can also set the physical fitness scale.\nThe food version of immediate recovery \"satiety\" has been implemented,\n" +
                     "and you can now use the \"recovery\" command to recover both at the same time.\n" +
                     "Also, an important command change is that you must always specify a name after selecting a command.";
+    /**
+     * (Private Static Final)<br>
+     * TPAMS ChangeLog Version 0.0.3-Alpha Page 3 String.<br>
+     * No localization is required.
+     */
     private static final @NonNls String TPAMS_CHANGELOG_VERSION003ALPHA_PAGE3 =
             "----------   0.0.3-ALPHA ChangeLog   PAGE   3 / 3 ----------\n" +
                     "Also, the game mode command does not conflict with the original game mode command, so it has been changed to \"oldgamemode\" again.\n" +
@@ -215,6 +331,11 @@ public class TPAMSCommand implements TabExecutor {
                     "/walk_speed (<player_name>) <reset|0.1~1.0(|getspeed)>\n/health (<player_name>) <set|add(|gethealth)> <number value>\n" +
                     "/healthscale (<player_name>) <set|add(|gethealthscale)>\n/food (<player_name>) <set|add(|gethealth)> <number value>\n" +
                     "/heel (<player_name>)\n/satiety (<player_name>)\n/oldgamemode <0(SURVIVAL)|1(CREATIVE)|2(ADVENTURE)|3(SPECTATOR)>";
+    /**
+     * (Private Static Final)<br>
+     * TPAMS ChangeLog Version 0.1.5-Alpha Page 1 String.<br>
+     * No localization is required.
+     */
     private static final @NonNls String TPAMS_CHANGELOG_VERSION015ALPHA_PAGE1 =
             "----------   0.1.5-ALPHA ChangeLog   PAGE   1 / 4 ----------\n" +
                     BOLD + "TPAMS is Returned!\n" + RESET + "・Supported version 1.18.1.\n・Commands Updated.\n・New commands came.\n・Some commands deleted or renamed\n" +
@@ -222,6 +343,11 @@ public class TPAMSCommand implements TabExecutor {
                     "/classic_gamemode < 0 | 1 | 2 | 3 | s | c | a | sp > < PlayerName >\nYou can set a gamemode using the old command arguments option.\n" +
                     "e.g.\n/classic_gamemode 0\n/classic_gamemode 1 EXAMPLE\n<Fake Message Command>\n/fakemsg < PlayerName > < MsgBody >\n" +
                     "You can send a fake message using the name of another user.\nne.g.\n/fakemsg EXAMPLE HELLO\nresult:\n<EXAMPLE...?> HELLO";
+    /**
+     * (Private Static Final)<br>
+     * TPAMS ChangeLog Version 0.1.5-Alpha Page 2 String.<br>
+     * No localization is required.
+     */
     private static final @NonNls String TPAMS_CHANGELOG_VERSION015ALPHA_PAGE2 =
             "----------   0.1.5-ALPHA ChangeLog   PAGE   2 / 4 ----------\n" +
                     "<Fake Name Command>\n/fakename < PlayerName > < fakename >\nYou can set a fake name using the name of another user.\ne.g.\n" +
@@ -229,6 +355,11 @@ public class TPAMSCommand implements TabExecutor {
                     "\nYou can set/get the player flightable.\ne.g.\n/fly EXAMPLE true\n/fly EXAMPLE getboolean\nresult:\nEXAMPLE's flightable: true\n" +
                     "<Fly Speed Command>\n/fly_speed < PlayerName > < reset | set | min | max | add | sub | getspeed > < 0.1~1.0 >\n" +
                     "You can set/get the player flight speed.\ne.g.\n/fly_speed EXAMPLE set 1\n/fly_speed EXAMPLE min\n/fly_speed EXAMPLE getspeed";
+    /**
+     * (Private Static Final)<br>
+     * TPAMS ChangeLog Version 0.1.5-Alpha Page 3 String.<br>
+     * No localization is required.
+     */
     private static final @NonNls String TPAMS_CHANGELOG_VERSION015ALPHA_PAGE3 =
             "----------   0.1.5-ALPHA ChangeLog   PAGE   3 / 4 ----------\n" +
                     "result:\nEXAMPLE's flight speed is 0.1\n<Walk Speed Command>\n/walk_speed < PlayerName > < reset | set | min | max | add | sub | getspeed > < 0.1~1.0 >\n" +
@@ -236,6 +367,11 @@ public class TPAMSCommand implements TabExecutor {
                     "EXAMPLE's walk speed is 0.2\n<Health Command>\n/health < PlayerName > < set | kill | min | max | add | sub | gethealth > < 0 or more >\n" +
                     "You can set|get the player health.\ne.g.\n/health EXAMPLE set 20\n/health EXAMPLE kill\n/health EXAMPLE gethealth\n" +
                     "result:\nEXAMPLE's health is 20.0\n<Nickname Command>\n/nickname < PlayerName > < nickname >\nYou can set the player nickname.";
+    /**
+     * (Private Static Final)<br>
+     * TPAMS ChangeLog Version 0.1.5-Alpha Page 4 String.<br>
+     * No localization is required.
+     */
     private static final @NonNls String TPAMS_CHANGELOG_VERSION015ALPHA_PAGE4 =
             "----------   0.1.5-ALPHA ChangeLog   PAGE   4 / 4 ----------\n" +
                     "e.g.\n/nickname EXAMPLE NICKNAME\nresult:\nNICKNAME(EXAMPLE)\n<Quick Full Food Command>\n/quick_fullfood < PlayerName >\n" +
@@ -243,23 +379,48 @@ public class TPAMSCommand implements TabExecutor {
                     "/quick_fullhealth < PlayerName >\nYou can quick recover health point.\ne.g.\n/quick_fullhealth\n/quick_fullhealth EXAMPLE\n" +
                     "<Quick Recovery Command>\n/quick_recovery < PlayerName >\nYou can quick recover health and food point.\ne.g.\n" +
                     "\n/quick_recovery\n/quick_recovery EXAMPLE";
+    /**
+     * (Private Static Final)<br>
+     * TPAMS ChangeLog Version 0.1.5-Beta Page 1 String.<br>
+     * No localization is required.
+     */
     private static final @NonNls String TPAMS_CHANGELOG_VERSION015BETA_PAGE1 =
             "----------   0.1.5-BETA ChangeLog   PAGE   1 / 1 ----------\n" +
                     BOLD + "Beta Update!\n" + RESET + "・Add /fakename_reset command.\n・Add /nickname_reset command.";
+    /**
+     * (Private Static Final)<br>
+     * TPAMS ChangeLog Version 0.1.5-Release Page 1 String.<br>
+     * No localization is required.
+     */
     private static final @NonNls String TPAMS_CHANGELOG_VERSION015RELEASE_PAGE1 =
             "----------   0.1.5-RELEASE ChangeLog   PAGE   1 / 1 ----------\n" +
                     BOLD + "A FIRST TPAMS RELEASE IS HERE!\n\n" + RESET +
                     "・FIRST TPAMS RELEASE IS RELEASED!\n・Added TabComplete!!!\n・Added /tpams_changelog Command\n→/tpams_changelog < Version > < Page >\n\n" +
                     "→You can see the TPAMS changelogs.\n\n・Added /tpams_help Command\n→/tpams_help < TPAMS Commands >\n\n→You can see the TPAMS command help.";
+    /**
+     * (Private Static Final)<br>
+     * TPAMS ChangeLog Version 0.1.6-Alpha Page 1 String.<br>
+     * No localization is required.
+     */
     private static final @NonNls String TPAMS_CHANGELOG_VERSION016ALPHA_PAGE1 =
             "----------   0.1.6-ALPHA ChangeLog   PAGE   1 / 1 ----------\n" +
                     "・Added /tpams_playerdata_debug < PlayerName > < Commands >\n・Added /tpams_serverdata_debug < Commands >";
+    /**
+     * (Private Static Final)<br>
+     * TPAMS ChangeLog Version 0.2.0-Alpha Page 1 String.<br>
+     * No localization is required.
+     */
     private static final @NonNls String TPAMS_CHANGELOG_VERSION020ALPHA_PAGE1 =
             "----------   0.2.0-ALPHA ChangeLog   PAGE   1 / 1 ----------\n" +
                     "New Version TPAMS Arrived!\nTPAMS System was Renewal. And Open Sourced. The TPAMS Command Added. \ne.g. /tpams active < Command > < true | false >\n" +
                     "/tpams help < Command >\n/tpams changelog < Version > < Page >\n/tpams ping\nSome command moved to ServerSDC, WorldSDC, QuickStatusSDC, NameRE, PlayerSDC.\n" +
                     "You can now check TPAMS Source code in https://github.com/WHITE555Gamer/Minecraft-Spigot-TPAMS";
 
+    /**
+     * (Private)<br>
+     * TPAMS Version Enum Including ChangeLogs.<br>
+     * No localization is required as it is used only internally.
+     */
     private enum TPAMSVersions {
         Version001Alpha(0, "0.0.1-ALPHA", 1),
         Version001Beta(1, "0.0.1-BETA", 2),
@@ -273,14 +434,36 @@ public class TPAMSCommand implements TabExecutor {
         Version016Alpha(9, "0.1.6-ALPHA", 1),
         Version020Alpha(10, "0.2.0-ALPHA", 1);
 
+        /**
+         * (Private Final)<br>
+         * TPAMS Version Index In Enum Including ChangeLogs.<br>
+         * No localization is required as it is used only internally.
+         */
+        private final Integer index;
+        /**
+         * (Private Final)<br>
+         * TPAMS Version String In Enum Including ChangeLogs.<br>
+         * No localization is required as it is used only internally.
+         */
+        private final String version;
+        /**
+         * (Private Final)<br>
+         * TPAMS Version Page In Enum Including ChangeLogs.<br>
+         * No localization is required as it is used only internally.
+         */
+        private final Integer page;
 
-        private Integer index;
-        private String version;
-        private Integer page;
-
+        /**
+         * TPAMS Versions Constructor In Enum Including ChangeLogs.<br>
+         * No localization is required as it is used only internally.
+         *
+         * @param index   Index
+         * @param version Version String
+         * @param page    Page
+         */
         TPAMSVersions(Integer index, String version, Integer page) {
-            this.version = version;
             this.index = index;
+            this.version = version;
             this.page = page;
         }
     }
@@ -309,12 +492,16 @@ public class TPAMSCommand implements TabExecutor {
         return isActive;
     }
 
+    private static @NonNls void sendPageNotFoundMessage(@NotNull CommandSender sender, @NotNull Integer integer) {
+        sender.sendMessage("Page Not Found. ( 1 ~ " + integer + " )");
+    }
+
     /**
      * (Private Static Final)<br>
      * Command Suggestions List.<br>
      * No localization is required as it is used only internally.
      */
-    private static final @NonNls List<String> FIRST_COMMAND_SUGGESTIONS = ImmutableList.of(ARGS_LABEL_ACTIVE, ARGS_LABEL_CHANGELOG, ARGS_LABEL_HELP, ARGS_LABEL_PING);
+    private static final @NonNls List<String> COMMAND_SUGGESTIONS = ImmutableList.of(ARGS_LABEL_ACTIVE, ARGS_LABEL_CHANGELOG, ARGS_LABEL_HELP, ARGS_LABEL_PING);
     /**
      * (Private Static Final)<br>
      * TPAMS Commands List.<br>
@@ -323,11 +510,26 @@ public class TPAMSCommand implements TabExecutor {
     private static final @NonNls List<String> TPAMS_COMMANDS_LIST =
             ImmutableList.of(BROADCASTMESSAGE_COMMAND_NAME, FLY_COMMAND_NAME, FLYSPEED_COMMAND_NAME, OLDGAMEMODE_COMMAND_NAME, SNEAK_COMMAND_NAME,
                     TPAMS_COMMAND_NAME);
+    /**
+     * (Private Static Final)<br>
+     * TPAMS Versions List.<br>
+     * No localization is required as it is used only internally.
+     */
     private static final @NonNls List<String> TPAMS_VERSIONS_LIST =
             ImmutableList.of(TPAMSVersions.Version001Alpha.version, TPAMSVersions.Version001Beta.version, TPAMSVersions.Version002Alpha.version, TPAMSVersions.Version002Beta.version,
                     TPAMSVersions.Version003SnapShot.version, TPAMSVersions.Version003Alpha.version, TPAMSVersions.Version015Alpha.version, TPAMSVersions.Version015Beta.version,
                     TPAMSVersions.Version015Release.version, TPAMSVersions.Version016Alpha.version, TPAMSVersions.Version020Alpha.version);
+    /**
+     * (Private Static Final)<br>
+     * Number Suggestions List.<br>
+     * No localization is required as it is used only internally.
+     */
     private static final @NonNls List<String> NUMBER_SUGGESTIONS = ImmutableList.of("1", "2", "3", "4", "5", "6", "7", "8", "9");
+    /**
+     * (Private Static Final)<br>
+     * Boolean Suggestions List.<br>
+     * No localization is required as it is used only internally.
+     */
     private static final @NonNls List<String> BOOLEAN_SUGGESTIONS = ImmutableList.of(ARGS_LABEL_TRUE, ARGS_LABEL_FALSE);
 
     /**
@@ -432,35 +634,35 @@ public class TPAMSCommand implements TabExecutor {
 
                 } else if (args[0].equalsIgnoreCase(ARGS_LABEL_CHANGELOG)) {
 
-                    if (args[1].equalsIgnoreCase(TPAMSVersions.Version001Alpha.version)) {
+                    if (args[1].equalsIgnoreCase(TPAMSVersions.Version001Alpha.version) || args[1].equalsIgnoreCase("index:" + TPAMSVersions.Version001Alpha.index)) {
                         if (args[2].equalsIgnoreCase("1")) {
                             sender.sendMessage(TPAMS_CHAMGELOG_VERSION001ALPHA_PAGE1);
                         } else {
-                            sender.sendMessage(ERROR_NON_CORRECT_ARGS_MESSAGE);
+                            sendPageNotFoundMessage(sender, TPAMSVersions.Version001Alpha.page);
                         }
-                    } else if (args[1].equalsIgnoreCase(TPAMSVersions.Version001Beta.version)) {
+                    } else if (args[1].equalsIgnoreCase(TPAMSVersions.Version001Beta.version) || args[1].equalsIgnoreCase("index:" + TPAMSVersions.Version001Beta.index)) {
                         if (args[2].equalsIgnoreCase("1")) {
                             sender.sendMessage(TPAMS_CHANGELOG_VERSION001BETA_PAGE1);
                         } else if (args[2].equalsIgnoreCase("2")) {
                             sender.sendMessage(TPAMS_CHANGELOG_VERSION001BETA_PAGE2);
                         } else {
-                            sender.sendMessage(ERROR_NON_CORRECT_ARGS_MESSAGE);
+                            sendPageNotFoundMessage(sender, TPAMSVersions.Version001Beta.page);
                         }
-                    } else if (args[1].equalsIgnoreCase(TPAMSVersions.Version002Alpha.version)) {
+                    } else if (args[1].equalsIgnoreCase(TPAMSVersions.Version002Alpha.version) || args[1].equalsIgnoreCase("index:" + TPAMSVersions.Version002Alpha.index)) {
                         if (args[2].equalsIgnoreCase("1")) {
                             sender.sendMessage(TPAMS_CHANGELOG_VERSION002ALPHA_PAGE1);
                         } else if (args[2].equalsIgnoreCase("2")) {
                             sender.sendMessage(TPAMS_CHANGELOG_VERSION002ALPHA_PAGE2);
                         } else {
-                            sender.sendMessage(ERROR_NON_CORRECT_ARGS_MESSAGE);
+                            sendPageNotFoundMessage(sender, TPAMSVersions.Version002Alpha.page);
                         }
-                    } else if (args[1].equalsIgnoreCase(TPAMSVersions.Version002Beta.version)) {
+                    } else if (args[1].equalsIgnoreCase(TPAMSVersions.Version002Beta.version) || args[1].equalsIgnoreCase("index:" + TPAMSVersions.Version002Beta.index)) {
                         if (args[2].equalsIgnoreCase("1")) {
                             sender.sendMessage(TPAMS_CHANGELOG_VERSION002BETA_PAGE1);
                         } else {
-                            sender.sendMessage(ERROR_NON_CORRECT_ARGS_MESSAGE);
+                            sendPageNotFoundMessage(sender, TPAMSVersions.Version002Beta.page);
                         }
-                    } else if (args[1].equalsIgnoreCase(TPAMSVersions.Version003SnapShot.version)) {
+                    } else if (args[1].equalsIgnoreCase(TPAMSVersions.Version003SnapShot.version) || args[1].equalsIgnoreCase("index:" + TPAMSVersions.Version003SnapShot.index)) {
                         if (args[2].equalsIgnoreCase("1")) {
                             sender.sendMessage(TPAMS_CHANGELOG_VERSION003SNAPSHOT_PAGE1);
                         } else if (args[2].equalsIgnoreCase("2")) {
@@ -468,9 +670,9 @@ public class TPAMSCommand implements TabExecutor {
                         } else if (args[2].equalsIgnoreCase("3")) {
                             sender.sendMessage(TPAMS_CHANGELOG_VERSION003SNAPSHOT_PAGE3);
                         } else {
-                            sender.sendMessage(ERROR_NON_CORRECT_ARGS_MESSAGE);
+                            sendPageNotFoundMessage(sender, TPAMSVersions.Version003SnapShot.page);
                         }
-                    } else if (args[1].equalsIgnoreCase(TPAMSVersions.Version003Alpha.version)) {
+                    } else if (args[1].equalsIgnoreCase(TPAMSVersions.Version003Alpha.version) || args[1].equalsIgnoreCase("index:" + TPAMSVersions.Version003Alpha.index)) {
                         if (args[2].equalsIgnoreCase("1")) {
                             sender.sendMessage(TPAMS_CHANGELOG_VERSION003ALPHA_PAGE1);
                         } else if (args[2].equalsIgnoreCase("2")) {
@@ -478,9 +680,9 @@ public class TPAMSCommand implements TabExecutor {
                         } else if (args[2].equalsIgnoreCase("3")) {
                             sender.sendMessage(TPAMS_CHANGELOG_VERSION003ALPHA_PAGE3);
                         } else {
-                            sender.sendMessage(ERROR_NON_CORRECT_ARGS_MESSAGE);
+                            sendPageNotFoundMessage(sender, TPAMSVersions.Version003Alpha.page);
                         }
-                    } else if (args[1].equalsIgnoreCase(TPAMSVersions.Version015Alpha.version)) {
+                    } else if (args[1].equalsIgnoreCase(TPAMSVersions.Version015Alpha.version) || args[1].equalsIgnoreCase("index:" + TPAMSVersions.Version015Alpha.index)) {
                         if (args[2].equalsIgnoreCase("1")) {
                             sender.sendMessage(TPAMS_CHANGELOG_VERSION015ALPHA_PAGE1);
                         } else if (args[2].equalsIgnoreCase("2")) {
@@ -490,31 +692,31 @@ public class TPAMSCommand implements TabExecutor {
                         } else if (args[2].equalsIgnoreCase("4")) {
                             sender.sendMessage(TPAMS_CHANGELOG_VERSION015ALPHA_PAGE4);
                         } else {
-                            sender.sendMessage(ERROR_NON_CORRECT_ARGS_MESSAGE);
+                            sendPageNotFoundMessage(sender, TPAMSVersions.Version015Alpha.page);
                         }
-                    } else if (args[1].equalsIgnoreCase(TPAMSVersions.Version015Beta.version)) {
+                    } else if (args[1].equalsIgnoreCase(TPAMSVersions.Version015Beta.version) || args[1].equalsIgnoreCase("index:" + TPAMSVersions.Version015Beta.index)) {
                         if (args[2].equalsIgnoreCase("1")) {
                             sender.sendMessage(TPAMS_CHANGELOG_VERSION015BETA_PAGE1);
                         } else {
-                            sender.sendMessage(ERROR_NON_CORRECT_ARGS_MESSAGE);
+                            sendPageNotFoundMessage(sender, TPAMSVersions.Version015Beta.page);
                         }
-                    } else if (args[1].equalsIgnoreCase(TPAMSVersions.Version015Release.version)) {
+                    } else if (args[1].equalsIgnoreCase(TPAMSVersions.Version015Release.version) || args[1].equalsIgnoreCase("index:" + TPAMSVersions.Version015Release.index)) {
                         if (args[2].equalsIgnoreCase("1")) {
                             sender.sendMessage(TPAMS_CHANGELOG_VERSION015RELEASE_PAGE1);
                         } else {
-                            sender.sendMessage(ERROR_NON_CORRECT_ARGS_MESSAGE);
+                            sendPageNotFoundMessage(sender, TPAMSVersions.Version015Release.page);
                         }
-                    } else if (args[1].equalsIgnoreCase(TPAMSVersions.Version016Alpha.version)) {
+                    } else if (args[1].equalsIgnoreCase(TPAMSVersions.Version016Alpha.version) || args[1].equalsIgnoreCase("index:" + TPAMSVersions.Version016Alpha.index)) {
                         if (args[2].equalsIgnoreCase("1")) {
                             sender.sendMessage(TPAMS_CHANGELOG_VERSION016ALPHA_PAGE1);
                         } else {
-                            sender.sendMessage(ERROR_NON_CORRECT_ARGS_MESSAGE);
+                            sendPageNotFoundMessage(sender, TPAMSVersions.Version016Alpha.page);
                         }
-                    } else if (args[1].equalsIgnoreCase(TPAMSVersions.Version020Alpha.version)) {
+                    } else if (args[1].equalsIgnoreCase(TPAMSVersions.Version020Alpha.version) || args[1].equalsIgnoreCase("index:" + TPAMSVersions.Version020Alpha.index)) {
                         if (args[2].equalsIgnoreCase("1")) {
                             sender.sendMessage(TPAMS_CHANGELOG_VERSION020ALPHA_PAGE1);
                         } else {
-                            sender.sendMessage(ERROR_NON_CORRECT_ARGS_MESSAGE);
+                            sendPageNotFoundMessage(sender, TPAMSVersions.Version020Alpha.page);
                         }
                     }
                     sender.sendMessage(ERROR_NON_CORRECT_ARGS_MESSAGE);
@@ -544,9 +746,9 @@ public class TPAMSCommand implements TabExecutor {
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
             if (args[0].length() == 0) {
-                return FIRST_COMMAND_SUGGESTIONS;
+                return COMMAND_SUGGESTIONS;
             } else {
-                return FIRST_COMMAND_SUGGESTIONS.stream().filter(s -> s.startsWith(args[0].toLowerCase())).collect(Collectors.toList());
+                return COMMAND_SUGGESTIONS.stream().filter(s -> s.startsWith(args[0].toLowerCase())).collect(Collectors.toList());
             }
         } else if (args.length == 2) {
             if (args[1].length() == 0) {

@@ -46,6 +46,32 @@ public class FlyCommand implements TabExecutor {
 
     /**
      * (Private Static)<br>
+     * This Class's Instance.<br>
+     * It can get with getInstance Method Only.
+     */
+    private static FlyCommand instance = new FlyCommand();
+
+    /**
+     * (Public)<br>
+     * Public Constructor for Singleton.
+     */
+    private FlyCommand() {
+    }
+
+    /**
+     * (Public)<br>
+     * Getter.<br>
+     * This Method allows to you to get FlyCommand's instance.
+     *
+     * @return FlyCommand's Singleton Instance.
+     * @see FlyCommand
+     */
+    public static FlyCommand getInstance() {
+        return instance;
+    }
+
+    /**
+     * (Private Static)<br>
      * Command is active or inactive boolean.<br>
      * It uses getActive/setActive.
      *

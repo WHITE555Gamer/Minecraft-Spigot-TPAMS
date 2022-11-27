@@ -109,15 +109,13 @@ public final class TPAMS extends JavaPlugin {
      * This Class's Instance.<br>
      * It can get with getInstance Method Only.
      */
-    private static TPAMS instance;
+    private static TPAMS instance = new TPAMS();
 
     /**
      * (Public)<br>
-     * Public Constructor for Singleton.<br>
-     * For Singleton, It needs Private Constructor but when run this plugin, the error message show "Cannot access TPAMS cause Private Constructor".
+     * Public Constructor for Singleton.
      */
-    public TPAMS() {
-        instance = this;
+    private TPAMS() {
     }
 
     /**
@@ -132,32 +130,6 @@ public final class TPAMS extends JavaPlugin {
         return instance;
     }
 
-    private static BroadCastMessageCommand broadCastMessageCommand;
-    private static FlyCommand flyCommand;
-    private static FlySpeedCommand flySpeedCommand;
-    private static SneakCommand sneakCommand;
-    private static OldGameModeCommand oldGameModeCommand;
-    private static TPAMSCommand tpamsCommand;
-
-    public static BroadCastMessageCommand getBroadCastMessageCommand() {
-        return broadCastMessageCommand;
-    }
-    public static FlyCommand getFlyCommand() {
-        return flyCommand;
-    }
-    public static FlySpeedCommand getFlySpeedCommand() {
-        return flySpeedCommand;
-    }
-    public static SneakCommand getSneakCommand() {
-        return sneakCommand;
-    }
-    public static OldGameModeCommand getOldGameModeCommand() {
-        return oldGameModeCommand;
-    }
-    public static TPAMSCommand getTPAMSCommand() {
-        return tpamsCommand;
-    }
-
     /**
      * (Public)<br>
      * onEnable method.<br>
@@ -168,8 +140,8 @@ public final class TPAMS extends JavaPlugin {
      *         <li>BroadcastMessageCommand</li>
      *         <li>FlyCommandCommand</li>
      *         <li>FlySpeedCommandCommand</li>
-     *         <li>SneakCommand</li>
      *         <li>OldGameModeCommand</li>
+     *         <li>SneakCommand</li>
      *         <li>TPAMSCommand</li>
      *     </ul>
      *     </li>
@@ -178,27 +150,20 @@ public final class TPAMS extends JavaPlugin {
      * @see BroadCastMessageCommand
      * @see FlyCommand
      * @see FlySpeedCommand
-     * @see SneakCommand
      * @see OldGameModeCommand
+     * @see SneakCommand
      * @see TPAMSCommand
      */
     @Override
     public void onEnable() {
         getLogger().info("Beginning Enable Plugin...");
 
-        broadCastMessageCommand = new BroadCastMessageCommand();
-        flyCommand = new FlyCommand();
-        flySpeedCommand = new FlySpeedCommand();
-        sneakCommand = new SneakCommand();
-        oldGameModeCommand = new OldGameModeCommand();
-        tpamsCommand = new TPAMSCommand();
-
-        getCommand(BROADCAST_MESSAGE_COMMAND_LABEL).setExecutor(broadCastMessageCommand);
-        getCommand(FLY_COMMAND_LABEL).setExecutor(flyCommand);
-        getCommand(FLY_SPEED_COMMAND_LABEL).setExecutor(flySpeedCommand);
-        getCommand(SNEAK_COMMAND_LABEL).setExecutor(sneakCommand);
-        getCommand(OLD_GAMEMODE_COMMAND).setExecutor(oldGameModeCommand);
-        getCommand(TPAMS_COMMAND_LABEL).setExecutor(tpamsCommand);
+        getCommand(BROADCAST_MESSAGE_COMMAND_LABEL).setExecutor(BroadCastMessageCommand.getInstance());
+        getCommand(FLY_COMMAND_LABEL).setExecutor(FlyCommand.getInstance());
+        getCommand(FLY_SPEED_COMMAND_LABEL).setExecutor(FlySpeedCommand.getInstance());
+        getCommand(OLD_GAMEMODE_COMMAND).setExecutor(OldGameModeCommand.getInstance());
+        getCommand(SNEAK_COMMAND_LABEL).setExecutor(SneakCommand.getInstance());
+        getCommand(TPAMS_COMMAND_LABEL).setExecutor(TPAMSCommand.getInstance());
 
         getLogger().info("Finishing Enable Plugin...");
     }

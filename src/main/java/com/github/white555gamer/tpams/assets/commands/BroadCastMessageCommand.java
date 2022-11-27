@@ -1,5 +1,6 @@
 package com.github.white555gamer.tpams.assets.commands;
 
+import com.github.white555gamer.tpams.TPAMS;
 import com.google.common.collect.ImmutableList;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -40,6 +41,32 @@ public class BroadCastMessageCommand implements TabExecutor {
      */
     public static final @NonNls String commandName() {
         return "broadcastmessage";
+    }
+
+    /**
+     * (Private Static)<br>
+     * This Class's Instance.<br>
+     * It can get with getInstance Method Only.
+     */
+    private static BroadCastMessageCommand instance = new BroadCastMessageCommand();
+
+    /**
+     * (Public)<br>
+     * Public Constructor for Singleton.
+     */
+    private BroadCastMessageCommand() {
+    }
+
+    /**
+     * (Public)<br>
+     * Getter.<br>
+     * This Method allows to you to get BroadCastMessageCommand's instance.
+     *
+     * @return BroadCastMessageCommand's Singleton Instance.
+     * @see BroadCastMessageCommand
+     */
+    public static BroadCastMessageCommand getInstance() {
+        return instance;
     }
 
     /**
