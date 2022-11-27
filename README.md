@@ -1,9 +1,9 @@
 # Minecraft-TPAMS
-Open Sourced TPAMS was Scheduled but it will take time 'cause I'm doin' reforming TPAMS.
+Open Sourced TPAMS.
 https://www.curseforge.com/minecraft/bukkit-plugins/tpams/files
 
 
 
-You can watch before open sourced TPAMS below.
+You can watch old system TPAMS below.
 https://github.com/WHITE555Gamer/Minecraft-Spigot-Old-TPAMS/
 It is toooooo bad code it has.
