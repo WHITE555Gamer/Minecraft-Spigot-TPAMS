@@ -1,0 +1,46 @@
+name: TPAMS
+version: '${project.version}'
+main: com.github.white555gamer.tpams.TPAMS
+api-version: 1.19
+authors: [ WHITE, WHERE_WHITE_, WHERE_WHITE_KUN, WHITE555Gamer ]
+description: TPAMS, for Minecraft Multi-Server.
+website: https://www.curseforge.com/minecraft/bukkit-plugins/tpams/files
+
+commands:
+  broadcastmessage:
+    usage: |
+      /broadcastmessage Hello!
+      /broadcastmessage Hello World!
+    description: |
+      This command allows you to broadcast message.
+      It is intended for use from Server console.
+    aliases:
+      - bm
+  fly:
+    usage: |
+      /fly < Player > < true | false | toggle | getboolean >
+    description: | 
+      This command allows you to fly without creative or spectator mode.
+  flyspeed:
+    usage: |
+      /flyspeed < Player > < reset | set | min | max | zero | add | sub | getspeed >
+    description: |
+      This command allows you to set flight speed.
+  oldgamemode:
+    usage: |
+      /oldgamemode < 0 | 1 | 2 | 3 | s | c | a | sp > < Player >
+    description: | 
+      This command allows you to change game mode using old style command.
+  sneak:
+    usage: |
+      /sneak < Player > < true | false | toggle | getboolean >
+    description: |
+      This command allows you to change sneak mode.
+  tpams:
+    usage: |
+      /tpams active < TPAMS Command > < true | false > 
+      /tpams help < TPAMS Command >
+      /tpams changelog < Version > < Page >
+      /tpams ping
+    description: |
+      This command allows you to change or see TPAMS settings and more.
