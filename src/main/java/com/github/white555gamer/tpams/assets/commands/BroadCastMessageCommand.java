@@ -1,6 +1,5 @@
 package com.github.white555gamer.tpams.assets.commands;
 
-import com.github.white555gamer.tpams.TPAMS;
 import com.google.common.collect.ImmutableList;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -24,31 +23,31 @@ import static com.github.white555gamer.tpams.assets.constants.ConstantProperty.*
 public class BroadCastMessageCommand implements TabExecutor {
 
     /**
-     * (Public Static Final)<br>
+     * (Public Static)<br>
      * This Class's Name.
      *
      * @return This Class Name.
      */
-    public static final @NonNls String name() {
+    public static @NonNls String name() {
         return "BroadCastMessageCommand";
     }
 
     /**
-     * (Public Static Final)<br>
+     * (Public Static)<br>
      * This Class's Command Name.
      *
      * @return This Class's Command Name.
      */
-    public static final @NonNls String commandName() {
+    public static @NonNls String commandName() {
         return "broadcastmessage";
     }
 
     /**
-     * (Private Static)<br>
+     * (Private Static Final)<br>
      * This Class's Instance.<br>
      * It can get with getInstance Method Only.
      */
-    private static BroadCastMessageCommand instance = new BroadCastMessageCommand();
+    private static final BroadCastMessageCommand instance = new BroadCastMessageCommand();
 
     /**
      * (Private)<br>
@@ -123,7 +122,7 @@ public class BroadCastMessageCommand implements TabExecutor {
             return true;
         }
 
-        String BroadCastMessage = null;
+        StringBuilder BroadCastMessage = null;
 
         if (args.length == 0) {
             sender.sendMessage(ERROR_NON_CORRECT_ARGS_MESSAGE);
@@ -131,13 +130,13 @@ public class BroadCastMessageCommand implements TabExecutor {
         } else {
             for (int i = 0; i <= args.length - 1; i++) {
                 if (i == 0) {
-                    BroadCastMessage = args[i];
+                    BroadCastMessage = new StringBuilder(args[i]);
                 } else {
-                    BroadCastMessage = BroadCastMessage + " " + args[i];
+                    BroadCastMessage.append(" ").append(args[i]);
                 }
             }
         }
-        Bukkit.getServer().broadcastMessage(BroadCastMessage);
+        Bukkit.getServer().broadcastMessage(BroadCastMessage.toString());
         return true;
     }
 

@@ -2,7 +2,9 @@ package com.github.white555gamer.tpams.assets.commands;
 
 import com.google.common.collect.ImmutableList;
 import org.bukkit.Bukkit;
-import org.bukkit.command.*;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
@@ -29,25 +31,26 @@ public class SneakCommand implements TabExecutor {
      *
      * @return This Class Name.
      */
-    public static final @NonNls String name() {
+    public static @NonNls String name() {
         return "SneakCommand";
     }
+
     /**
      * (Public Static)<br>
      * This Class's Command Name.
      *
      * @return This Class's Command Name.
      */
-    public static final @NonNls String commandName() {
+    public static @NonNls String commandName() {
         return "sneak";
     }
 
     /**
-     * (Private Static)<br>
+     * (Private Static Final)<br>
      * This Class's Instance.<br>
      * It can get with getInstance Method Only.
      */
-    private static SneakCommand instance = new SneakCommand();
+    private static final SneakCommand instance = new SneakCommand();
 
     /**
      * (Private)<br>
@@ -87,6 +90,7 @@ public class SneakCommand implements TabExecutor {
     public static @NonNls void setActive(@NotNull Boolean bool) {
         isActive = bool;
     }
+
     /**
      * (Private Static)<br>
      * Get TPAMS Command is active or inactive boolean.<br>
@@ -122,16 +126,18 @@ public class SneakCommand implements TabExecutor {
      * No localization is required as it is used only internally.
      */
     private static final @NonNls String ARGS_LABEL_GETBOOLEAN = "getboolean";
+
     /**
      * (Private Static)<br>
      * This method send enable sneak message to sender or sender and player.<br>
      * Localization is required as it is used user-visible string.
+     *
      * @param sender CommandSender.
      * @param player Player.
      */
     private static void sendEnableMessage(@NotNull CommandSender sender, @NotNull Player player) {
         if (player.getLocale().equalsIgnoreCase(LOCALE_JAPANESE)) {
-            if (sender.getName() == player.getName()) {
+            if (sender.getName().equalsIgnoreCase(player.getName())) {
                 sender.sendMessage("スニークが有効化されました。");
             } else {
                 if (sender instanceof Player) {
@@ -148,7 +154,7 @@ public class SneakCommand implements TabExecutor {
                 }
             }
         } else {
-            if (sender.getName() == player.getName()) {
+            if (sender.getName().equalsIgnoreCase(player.getName())) {
                 sender.sendMessage("The sneak has been enabled.");
             } else {
                 sender.sendMessage(player.getName() + "'s sneak has been enabled.");
@@ -156,16 +162,18 @@ public class SneakCommand implements TabExecutor {
             }
         }
     }
+
     /**
      * (Private Static)<br>
      * This method send disable sneak message to sender or sender and player.<br>
      * Localization is required as it is used user-visible string.
+     *
      * @param sender CommandSender.
      * @param player Player.
      */
     private static void sendDisableMessage(@NotNull CommandSender sender, @NotNull Player player) {
         if (player.getLocale().equalsIgnoreCase(LOCALE_JAPANESE)) {
-            if (sender.getName() == player.getName()) {
+            if (sender.getName().equalsIgnoreCase(player.getName())) {
                 sender.sendMessage("スニークが無効化されました。");
             } else {
                 if (sender instanceof Player) {
@@ -182,7 +190,7 @@ public class SneakCommand implements TabExecutor {
                 }
             }
         } else {
-            if (sender.getName() == player.getName()) {
+            if (sender.getName().equalsIgnoreCase(player.getName())) {
                 sender.sendMessage("The sneak has been disabled.");
             } else {
                 sender.sendMessage(player.getName() + "'s sneak has been disabled.");
@@ -190,16 +198,18 @@ public class SneakCommand implements TabExecutor {
             }
         }
     }
+
     /**
      * (Private Static)<br>
      * This method send toggle sneak message to sender or sender and player.<br>
      * Localization is required as it is used user-visible string.
+     *
      * @param sender CommandSender.
      * @param player Player.
      */
-    private static void sendToggleMessage(@NotNull CommandSender sender, @NotNull  Player player, @NotNull Boolean bool) {
+    private static void sendToggleMessage(@NotNull CommandSender sender, @NotNull Player player, @NotNull Boolean bool) {
         if (player.getLocale().equalsIgnoreCase(LOCALE_JAPANESE)) {
-            if (sender.getName() == player.getName()) {
+            if (sender.getName().equalsIgnoreCase(player.getName())) {
                 if (bool) {
                     sender.sendMessage("スニークが切り替えられました。現在: 有効");
                 } else {
@@ -234,7 +244,7 @@ public class SneakCommand implements TabExecutor {
                     }
                 }
             }
-        } else if (sender.getName() == player.getName()) {
+        } else if (sender.getName().equalsIgnoreCase(player.getName())) {
             if (bool) {
                 sender.sendMessage("The sneak has been toggled. Now: Enable");
             } else {
@@ -250,15 +260,17 @@ public class SneakCommand implements TabExecutor {
             }
         }
     }
+
     /**
      * (Private Static)<br>
      * This method send get boolean sneak message to sender.<br>
      * Localization is required as it is used user-visible string.
+     *
      * @param sender CommandSender.
      * @param player Player.
      */
     private static void sendGetBooleanMessage(@NotNull CommandSender sender, @NotNull Player player, @NotNull Boolean bool) {
-        if (sender.getName() == player.getName()) {
+        if (sender.getName().equalsIgnoreCase(player.getName())) {
             if (player.getLocale().equalsIgnoreCase(LOCALE_JAPANESE)) {
                 if (bool) {
                     sender.sendMessage("スニーク: 有効");
@@ -296,6 +308,7 @@ public class SneakCommand implements TabExecutor {
             }
         }
     }
+
     /**
      * (Private Static Final)<br>
      * Already enable string message.<br>
@@ -318,10 +331,11 @@ public class SneakCommand implements TabExecutor {
     /**
      * (Public)<br>
      * onCommand method.
-     * @param sender CommandSender.
+     *
+     * @param sender  CommandSender.
      * @param command Command.
-     * @param label Label.
-     * @param args Args.
+     * @param label   Label.
+     * @param args    Args.
      * @return Always Return True.
      */
     @Override
@@ -395,10 +409,11 @@ public class SneakCommand implements TabExecutor {
     /**
      * (Public)<br>
      * onTabComplete Method.
-     * @param sender CommandSender.
+     *
+     * @param sender  CommandSender.
      * @param command Command.
-     * @param label Label.
-     * @param args Args.
+     * @param label   Label.
+     * @param args    Args.
      * @return List of Elements that tab complete.
      */
     @Nullable
@@ -406,9 +421,9 @@ public class SneakCommand implements TabExecutor {
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
             if (args[0].length() == 0) {
-                return getServer().getOnlinePlayers().stream().map(Player::getName).map(s -> s.toLowerCase()).collect(Collectors.toList());
+                return getServer().getOnlinePlayers().stream().map(Player::getName).map(String::toLowerCase).collect(Collectors.toList());
             } else {
-                return getServer().getOnlinePlayers().stream().map(Player::getName).map(s -> s.toLowerCase()).filter(s -> s.startsWith(args[0].toLowerCase())).collect(Collectors.toList());
+                return getServer().getOnlinePlayers().stream().map(Player::getName).map(String::toLowerCase).filter(s -> s.startsWith(args[0].toLowerCase())).collect(Collectors.toList());
             }
         } else if (args.length == 2) {
             if (args[1].length() == 0) {

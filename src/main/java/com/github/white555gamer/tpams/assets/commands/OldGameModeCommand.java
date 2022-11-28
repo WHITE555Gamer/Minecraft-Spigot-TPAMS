@@ -29,22 +29,22 @@ import static org.bukkit.GameMode.*;
 public class OldGameModeCommand implements TabExecutor {
 
     /**
-     * (Public Static Final)<br>
+     * (Public Static)<br>
      * This Class's Name.
      *
      * @return This Class Name.
      */
-    public static final @NonNls String name() {
+    public static @NonNls String name() {
         return "OldGameModeCommand";
     }
 
     /**
-     * (Public Static Final)<br>
+     * (Public Static)<br>
      * This Class's Command Name.
      *
      * @return This Class's Command Name.
      */
-    public static final @NonNls String commandName() {
+    public static @NonNls String commandName() {
         return "oldgamemode";
     }
 
@@ -53,7 +53,7 @@ public class OldGameModeCommand implements TabExecutor {
      * This Class's Instance.<br>
      * It can get with getInstance Method Only.
      */
-    private static OldGameModeCommand instance = new OldGameModeCommand();
+    private static final OldGameModeCommand instance = new OldGameModeCommand();
 
     /**
      * (Private)<br>
@@ -165,7 +165,7 @@ public class OldGameModeCommand implements TabExecutor {
      */
     private static @Nls void sendSetGameModeMessage(@NotNull CommandSender sender, @NotNull Player player, @NotNull GameMode gameMode) {
         if (player.getLocale().equalsIgnoreCase(LOCALE_JAPANESE)) {
-            if (sender.getName() == player.getName()) {
+            if (sender.getName().equalsIgnoreCase(player.getName())) {
                 sender.sendMessage("ゲームモードが" + gameMode.name() + "に設定されました。");
             } else {
                 if (sender instanceof Player) {
@@ -181,7 +181,7 @@ public class OldGameModeCommand implements TabExecutor {
                     player.sendMessage("ゲームモードが" + sender.getName() + "によって" + gameMode.name() + "に設定されました。");
                 }
             }
-        } else if (sender.getName() == player.getName()) {
+        } else if (sender.getName().equalsIgnoreCase(player.getName())) {
             sender.sendMessage("Set own GameMode to " + gameMode.name() + " mode.");
         } else {
             sender.sendMessage("Set " + player.getName() + "'s GameMode to " + gameMode.name() + " mode.");
@@ -335,9 +335,9 @@ public class OldGameModeCommand implements TabExecutor {
             }
         } else if (args.length == 2) {
             if (args[1].length() == 0) {
-                return getServer().getOnlinePlayers().stream().map(Player::getName).map(s -> s.toLowerCase()).collect(Collectors.toList());
+                return getServer().getOnlinePlayers().stream().map(Player::getName).map(String::toLowerCase).collect(Collectors.toList());
             } else {
-                return getServer().getOnlinePlayers().stream().map(Player::getName).map(s -> s.toLowerCase()).filter(s -> s.startsWith(args[0].toLowerCase())).collect(Collectors.toList());
+                return getServer().getOnlinePlayers().stream().map(Player::getName).map(String::toLowerCase).filter(s -> s.startsWith(args[0].toLowerCase())).collect(Collectors.toList());
             }
         } else {
             return ImmutableList.of();

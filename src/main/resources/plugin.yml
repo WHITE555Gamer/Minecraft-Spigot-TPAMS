@@ -26,6 +26,16 @@ commands:
       /flyspeed < Player > < default | reset | set | min | max | zero | add | sub | getspeed >
     description: |
       This command allows you to set flight speed.
+  health:
+    usage: |
+      /health < PlayerName > < set | kill | min | max | add | sub | gethealth > < 0 or more >
+    description: |
+      This command allows you to change health.
+  healthscale:
+    usage: |
+      /healthscale < PlayerName > < default | reset | set | min | add | sub | gethealthscale > < 1 or more >
+    description: |
+      This command allows you to change health scale.
   oldgamemode:
     usage: |
       /oldgamemode < 0 | 1 | 2 | 3 | s | c | a | sp > < Player >

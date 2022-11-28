@@ -21,7 +21,7 @@ public final class TPAMS extends JavaPlugin {
      *
      * @return This Class's Name.
      */
-    public static final @NonNls String name() {
+    public static @NonNls String name() {
         return "TPAMS";
     }
 
@@ -93,7 +93,9 @@ public final class TPAMS extends JavaPlugin {
      *     <ul>
      *         <li>BroadcastMessageCommand</li>
      *         <li>FlyCommandCommand</li>
-     *         <li>FlySpeedCommandCommand</li>
+     *         <li>FlySpeedCommand</li>
+     *         <li>HealthCommand</li>
+     *         <li>HealthScaleCommand</li>
      *         <li>OldGameModeCommand</li>
      *         <li>SneakCommand</li>
      *         <li>TPAMSCommand</li>
@@ -106,6 +108,8 @@ public final class TPAMS extends JavaPlugin {
      * @see BroadCastMessageCommand
      * @see FlyCommand
      * @see FlySpeedCommand
+     * @see HealthCommand
+     * @see HealthScaleCommand
      * @see OldGameModeCommand
      * @see SneakCommand
      * @see TPAMSCommand
@@ -118,6 +122,8 @@ public final class TPAMS extends JavaPlugin {
         getCommand(BroadCastMessageCommand.commandName()).setExecutor(BroadCastMessageCommand.getInstance());
         getCommand(FlyCommand.commandName()).setExecutor(FlyCommand.getInstance());
         getCommand(FlySpeedCommand.commandName()).setExecutor(FlySpeedCommand.getInstance());
+        getCommand(HealthCommand.commandName()).setExecutor(HealthCommand.getInstance());
+        getCommand(HealthScaleCommand.commandName()).setExecutor(HealthScaleCommand.getInstance());
         getCommand(OldGameModeCommand.commandName()).setExecutor(OldGameModeCommand.getInstance());
         getCommand(SneakCommand.commandName()).setExecutor(SneakCommand.getInstance());
         getCommand(TPAMSCommand.commandName()).setExecutor(TPAMSCommand.getInstance());

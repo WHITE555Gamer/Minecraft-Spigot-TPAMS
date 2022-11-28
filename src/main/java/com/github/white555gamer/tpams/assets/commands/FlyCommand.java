@@ -25,31 +25,31 @@ import static org.bukkit.Bukkit.getServer;
 public class FlyCommand implements TabExecutor {
 
     /**
-     * (Public Static Final)<br>
+     * (Public Static)<br>
      * This Class's Name.
      *
      * @return This Class Name.
      */
-    public static final @NonNls String name() {
+    public static @NonNls String name() {
         return "FlyCommand";
     }
 
     /**
-     * (Public Static Final)<br>
+     * (Public Static)<br>
      * This Class's Command Name.
      *
      * @return This Class's Command Name.
      */
-    public static final @NonNls String commandName() {
+    public static @NonNls String commandName() {
         return "fly";
     }
 
     /**
-     * (Private Static)<br>
+     * (Private Static Final)<br>
      * This Class's Instance.<br>
      * It can get with getInstance Method Only.
      */
-    private static FlyCommand instance = new FlyCommand();
+    private static final FlyCommand instance = new FlyCommand();
 
     /**
      * (Private)<br>
@@ -136,7 +136,7 @@ public class FlyCommand implements TabExecutor {
      */
     private static @Nls void sendEnableMessage(@NotNull CommandSender sender, @NotNull Player player) {
         if (player.getLocale().equalsIgnoreCase(LOCALE_JAPANESE)) {
-            if (sender.getName() == player.getName()) {
+            if (sender.getName().equalsIgnoreCase(player.getName())) {
                 sender.sendMessage("飛行が有効化されました。");
             } else {
                 if (sender instanceof Player) {
@@ -153,7 +153,7 @@ public class FlyCommand implements TabExecutor {
                 }
             }
         } else {
-            if (sender.getName() == player.getName()) {
+            if (sender.getName().equalsIgnoreCase(player.getName())) {
                 sender.sendMessage("The flight has been enabled.");
             } else {
                 sender.sendMessage(player.getName() + "'s flight has been enabled.");
@@ -172,7 +172,7 @@ public class FlyCommand implements TabExecutor {
      */
     private static @Nls void sendDisableMessage(@NotNull CommandSender sender, @NotNull Player player) {
         if (player.getLocale().equalsIgnoreCase(LOCALE_JAPANESE)) {
-            if (sender.getName() == player.getName()) {
+            if (sender.getName().equalsIgnoreCase(player.getName())) {
                 sender.sendMessage("飛行が無効化されました。");
             } else {
                 if (sender instanceof Player) {
@@ -188,7 +188,7 @@ public class FlyCommand implements TabExecutor {
                     player.sendMessage("飛行が" + sender.getName() + "によって無効化されました。");
                 }
             }
-        } else if (sender.getName() == player.getName()) {
+        } else if (sender.getName().equalsIgnoreCase(player.getName())) {
             sender.sendMessage("The flight has been disabled.");
         } else {
             sender.sendMessage(player.getName() + "'s flight has been disabled.");
@@ -206,7 +206,7 @@ public class FlyCommand implements TabExecutor {
      */
     private static @Nls void sendToggleMessage(@NotNull CommandSender sender, @NotNull Player player, @NotNull Boolean bool) {
         if (player.getLocale().equalsIgnoreCase(LOCALE_JAPANESE)) {
-            if (sender.getName() == player.getName()) {
+            if (sender.getName().equalsIgnoreCase(player.getName())) {
                 if (bool) {
                     sender.sendMessage("飛行が切り替えられました。現在: 有効");
                 } else {
@@ -241,7 +241,7 @@ public class FlyCommand implements TabExecutor {
                     }
                 }
             }
-        } else if (sender.getName() == player.getName()) {
+        } else if (sender.getName().equalsIgnoreCase(player.getName())) {
             if (bool) {
                 sender.sendMessage("The flight has been toggled. Now: Enable");
             } else {
@@ -267,7 +267,7 @@ public class FlyCommand implements TabExecutor {
      * @param player Player.
      */
     private static @Nls void sendGetBooleanMessage(@NotNull CommandSender sender, @NotNull Player player, @NotNull Boolean bool) {
-        if (sender.getName() == player.getName()) {
+        if (sender.getName().equalsIgnoreCase(player.getName())) {
             if (player.getLocale().equalsIgnoreCase(LOCALE_JAPANESE)) {
                 if (bool) {
                     sender.sendMessage("飛行: 有効");
@@ -336,7 +336,7 @@ public class FlyCommand implements TabExecutor {
      * @return Always Return True.
      */
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 
         if (!getTPAMSActive()) {
             sender.sendMessage(ERROR_TPAMS_COMMAND_INACTIVE_MESSAGE);
@@ -418,9 +418,9 @@ public class FlyCommand implements TabExecutor {
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
             if (args[0].length() == 0) {
-                return getServer().getOnlinePlayers().stream().map(Player::getName).map(s -> s.toLowerCase()).collect(Collectors.toList());
+                return getServer().getOnlinePlayers().stream().map(Player::getName).map(String::toLowerCase).collect(Collectors.toList());
             } else {
-                return getServer().getOnlinePlayers().stream().map(Player::getName).map(s -> s.toLowerCase()).filter(s -> s.startsWith(args[0].toLowerCase())).collect(Collectors.toList());
+                return getServer().getOnlinePlayers().stream().map(Player::getName).map(String::toLowerCase).filter(s -> s.startsWith(args[0].toLowerCase())).collect(Collectors.toList());
             }
         } else if (args.length == 2) {
             if (args[1].length() == 0) {

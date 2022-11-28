@@ -17,15 +17,16 @@ import java.util.stream.Collectors;
 
 import static com.github.white555gamer.tpams.TPAMS.getTPAMSActive;
 import static com.github.white555gamer.tpams.assets.constants.ConstantProperty.*;
+import static com.github.white555gamer.tpams.assets.constants.ConstantProperty.ERROR_NON_CORRECT_ARGS_MESSAGE;
 import static org.bukkit.Bukkit.getServer;
 
 /**
- * Walk Speed Command Class.<br>
- * This Class Controlling Walk Speed Command Operation.
+ * Health Command Class.<br>
+ * This Class Controlling Health Command Operation.
  *
  * @since 0.0.2-ALPHA<br>(Reformed 0.2.0-ALPHA)
  */
-public class WalkSpeedCommand implements TabExecutor {
+public class HealthCommand implements TabExecutor {
 
     /**
      * (Public Static)<br>
@@ -34,7 +35,7 @@ public class WalkSpeedCommand implements TabExecutor {
      * @return This Class Name.
      */
     public static @NonNls String name() {
-        return "WalkSpeedCommand";
+        return "HealthCommand";
     }
 
     /**
@@ -44,7 +45,7 @@ public class WalkSpeedCommand implements TabExecutor {
      * @return This Class's Command Name.
      */
     public static @NonNls String commandName() {
-        return "walkspeed";
+        return "health";
     }
 
     /**
@@ -52,27 +53,26 @@ public class WalkSpeedCommand implements TabExecutor {
      * This Class's Instance.<br>
      * It can get with getInstance Method Only.
      */
-    private static final WalkSpeedCommand instance = new WalkSpeedCommand();
+    private static final HealthCommand instance = new HealthCommand();
 
     /**
      * (Private)<br>
      * Private Constructor for Singleton.
      */
-    private WalkSpeedCommand() {
+    private HealthCommand() {
     }
 
     /**
      * (Public)<br>
      * Getter.<br>
-     * This Method allows to you to get WalkSpeedCommand's instance.
+     * This Method allows to you to get HealthCommand's instance.
      *
-     * @return WalkSpeedCommand's Singleton Instance.
-     * @see WalkSpeedCommand
+     * @return HealthCommand's Singleton Instance.
+     * @see HealthCommand
      */
-    public static WalkSpeedCommand getInstance() {
+    public static HealthCommand getInstance() {
         return instance;
     }
-
 
     /**
      * (Private Static)<br>
@@ -107,41 +107,17 @@ public class WalkSpeedCommand implements TabExecutor {
 
     /**
      * (Private Static Final)<br>
-     * Zero Float.<br>
+     * Zero Double.<br>
      * No localization is required as it is used only internally.
      */
-    private static final @NonNls Float ZERO_WALK_SPEED = 0f;
+    private static final @NonNls Double ZERO_HEALTH = 0d;
     /**
      * (Private Static Final)<br>
-     * Minimum Float.<br>
+     * Minimum Double.<br>
      * No localization is required as it is used only internally.
      */
-    private static final @NonNls Float MINIMUM_WALK_SPEED = 0.1f;
-    /**
-     * (Private Static Final)<br>
-     * Maximum Float.<br>
-     * No localization is required as it is used only internally.
-     */
-    private static final @NonNls Float MAXIMUM_WALK_SPEED = 1f;
-    /**
-     * (Private Static Final)<br>
-     * Default Float.<br>
-     * No localization is required as it is used only internally.
-     */
-    private static final @NonNls Float DEFAULT_WALK_SPEED = 0.2f;
+    private static final @NonNls Double MINIMUM_HEALTH = 1d;
 
-    /**
-     * (Private Static Final)<br>
-     * Default String Label.<br>
-     * No localization is required as it is used only internally.
-     */
-    private static final @NonNls String ARGS_LABEL_DEFAULT = "default";
-    /**
-     * (Private Static Final)<br>
-     * Reset String Label.<br>
-     * No localization is required as it is used only internally.
-     */
-    private static final @NonNls String ARGS_LABEL_RESET = "reset";
     /**
      * (Private Static Final)<br>
      * Set String Label.<br>
@@ -180,78 +156,51 @@ public class WalkSpeedCommand implements TabExecutor {
     private static final @NonNls String ARGS_LABEL_ZERO = "zero";
     /**
      * (Private Static Final)<br>
-     * GetSpeed String Label.<br>
+     * Zero String Label.<br>
      * No localization is required as it is used only internally.
      */
-    private static final @NonNls String ARGS_LABEL_GETSPEED = "getspeed";
-
+    private static final @NonNls String ARGS_LABEL_KILL = "kill";
     /**
-     * (Private Static)<br>
-     * This method send reset message to sender or sender and player.<br>
-     * Localization is required as it is used user-visible string.
-     *
-     * @param sender CommandSender.
-     * @param player Player.
+     * (Private Static Final)<br>
+     * GetHealth String Label.<br>
+     * No localization is required as it is used only internally.
      */
-    private static @Nls void sendResetMessage(@NotNull CommandSender sender, @NotNull Player player) {
-        if (player.getLocale().equalsIgnoreCase(LOCALE_JAPANESE)) {
-            if (sender.getName().equalsIgnoreCase(player.getName())) {
-                sender.sendMessage("歩行速度が初期化されました。");
-            } else {
-                if (sender instanceof Player) {
-                    if (((Player) sender).getLocale().equalsIgnoreCase(LOCALE_JAPANESE)) {
-                        sender.sendMessage(player.getName() + "の歩行速度が初期化されました。");
-                        player.sendMessage("歩行速度が" + sender.getName() + "によって初期化されました。");
-                    } else {
-                        sender.sendMessage(player.getName() + "'s walk speed has been reset.");
-                        player.sendMessage("歩行速度が" + sender.getName() + "によって初期化されました。");
-                    }
-                } else {
-                    sender.sendMessage(player.getName() + "'s walk speed has been reset.");
-                    player.sendMessage("歩行速度が" + sender.getName() + "によって初期化されました。");
-                }
-            }
-        } else if (sender.getName().equalsIgnoreCase(player.getName())) {
-            sender.sendMessage("The walk speed has been reset.");
-        } else {
-            sender.sendMessage(player.getName() + "'s walk speed has been reset.");
-            player.sendMessage("The walk speed has been reset by " + sender.getName() + ".");
-        }
-    }
+    private static final @NonNls String ARGS_LABEL_GETHEALTH = "gethealth";
+
 
     /**
      * (Private Static)<br>
      * This method send set message to sender or sender and player.<br>
      * Localization is required as it is used user-visible string.
      *
-     * @param sender      CommandSender.
-     * @param player      Player.
-     * @param beforeSpeed Speed Before Changes.
-     * @param afterSpeed  Speed After Changes.
+     * @param sender       CommandSender.
+     * @param player       Player.
+     * @param beforeHealth Health Before Changes.
+     * @param afterHealth  Health After Changes.
      */
-    private static @Nls void sendSetMessage(@NotNull CommandSender sender, @NotNull Player player, @NotNull Float beforeSpeed, @NotNull Float afterSpeed) {
+    private static @Nls void sendSetMessage(@NotNull CommandSender sender, @NotNull Player player, @NotNull Double beforeHealth, @NotNull Double afterHealth) {
         if (player.getLocale().equalsIgnoreCase(LOCALE_JAPANESE)) {
             if (sender.getName().equalsIgnoreCase(player.getName())) {
-                sender.sendMessage("歩行速度が" + beforeSpeed + "から" + afterSpeed + "に設定されました。");
+                sender.sendMessage("体力が" + beforeHealth + "から" + afterHealth + "に設定されました。");
             } else {
                 if (sender instanceof Player) {
                     if (((Player) sender).getLocale().equalsIgnoreCase(LOCALE_JAPANESE)) {
-                        sender.sendMessage(player.getName() + "の歩行速度が" + beforeSpeed + "から" + afterSpeed + "設定されました。");
-                        player.sendMessage("歩行速度が" + sender.getName() + "によって" + beforeSpeed + "から" + afterSpeed + "に設定されました。");
+                        sender.sendMessage(player.getName() + "の体力が" + beforeHealth + "から" + afterHealth + "設定されました。");
+                        player.sendMessage("体力が" + sender.getName() + "によって" + beforeHealth + "から" + afterHealth + "に設定されました。");
                     } else {
-                        sender.sendMessage("The walk speed has been set " + afterSpeed + " from " + beforeSpeed + ".");
-                        player.sendMessage("歩行速度が" + sender.getName() + "によって" + beforeSpeed + "から" + afterSpeed + "に設定されました。");
+                        sender.sendMessage("The health has been set " + afterHealth + " from " + beforeHealth + ".");
+                        player.sendMessage("体力が" + sender.getName() + "によって" + beforeHealth + "から" + afterHealth + "に設定されました。");
                     }
                 } else {
-                    sender.sendMessage("The walk speed has been set " + afterSpeed + " from " + beforeSpeed + ".");
-                    player.sendMessage("歩行速度が" + sender.getName() + "によって" + beforeSpeed + "から" + afterSpeed + "に設定されました。");
+                    sender.sendMessage("The health has been set " + afterHealth + " from " + beforeHealth + ".");
+                    player.sendMessage("体力速度が" + sender.getName() + "によって" + beforeHealth + "から" + afterHealth + "に設定されました。");
                 }
             }
         } else if (sender.getName().equalsIgnoreCase(player.getName())) {
-            sender.sendMessage("The walk speed has been set " + afterSpeed + " from " + beforeSpeed + ".");
+            sender.sendMessage("The health has been set " + afterHealth + " from " + beforeHealth + ".");
         } else {
-            sender.sendMessage(player.getName() + "'s walk speed has been set " + afterSpeed + " from " + beforeSpeed + ".");
-            player.sendMessage("The walk speed has been set " + afterSpeed + " from " + beforeSpeed + " by " + sender.getName() + ".");
+            sender.sendMessage(player.getName() + "'s health has been set " + afterHealth + " from " + beforeHealth + ".");
+            player.sendMessage("The health has been set " + afterHealth + " from " + beforeHealth + " by " + sender.getName() + ".");
         }
     }
 
@@ -266,26 +215,26 @@ public class WalkSpeedCommand implements TabExecutor {
     private static @Nls void sendMinimumMessage(@NotNull CommandSender sender, @NotNull Player player) {
         if (player.getLocale().equalsIgnoreCase(LOCALE_JAPANESE)) {
             if (sender.getName().equalsIgnoreCase(player.getName())) {
-                sender.sendMessage("歩行速度が最小に設定されました。");
+                sender.sendMessage("体力が最小に設定されました。");
             } else {
                 if (sender instanceof Player) {
                     if (((Player) sender).getLocale().equalsIgnoreCase(LOCALE_JAPANESE)) {
-                        sender.sendMessage(player.getName() + "の歩行速度が最小に設定されました。");
-                        player.sendMessage("歩行速度が" + sender.getName() + "によって最小に設定されました。");
+                        sender.sendMessage(player.getName() + "の体力が最小に設定されました。");
+                        player.sendMessage("体力が" + sender.getName() + "によって最小に設定されました。");
                     } else {
-                        sender.sendMessage(player.getName() + "'s walk speed has been set Minimum.");
-                        player.sendMessage("歩行速度が" + sender.getName() + "によって最小に設定されました。");
+                        sender.sendMessage(player.getName() + "'s health has been set Minimum.");
+                        player.sendMessage("体力が" + sender.getName() + "によって最小に設定されました。");
                     }
                 } else {
-                    sender.sendMessage(player.getName() + "'s walk speed has been set Minimum.");
-                    player.sendMessage("飛行速度が" + sender.getName() + "によって最小に設定されました。");
+                    sender.sendMessage(player.getName() + "'s health has been set Minimum.");
+                    player.sendMessage("体力が" + sender.getName() + "によって最小に設定されました。");
                 }
             }
         } else if (sender.getName().equalsIgnoreCase(player.getName())) {
-            sender.sendMessage("The walk speed has been set Minimum.");
+            sender.sendMessage("The health has been set Minimum.");
         } else {
-            sender.sendMessage(player.getName() + "'s walk speed has been set Minimum.");
-            player.sendMessage("The walk speed has been set Minimum by " + sender.getName() + ".");
+            sender.sendMessage(player.getName() + "'s health has been set Minimum.");
+            player.sendMessage("The health has been set Minimum by " + sender.getName() + ".");
         }
     }
 
@@ -300,26 +249,26 @@ public class WalkSpeedCommand implements TabExecutor {
     private static @Nls void sendMaximumMessage(@NotNull CommandSender sender, @NotNull Player player) {
         if (player.getLocale().equalsIgnoreCase(LOCALE_JAPANESE)) {
             if (sender.getName().equalsIgnoreCase(player.getName())) {
-                sender.sendMessage("歩行速度が最大に設定されました。");
+                sender.sendMessage("体力が最大に設定されました。");
             } else {
                 if (sender instanceof Player) {
                     if (((Player) sender).getLocale().equalsIgnoreCase(LOCALE_JAPANESE)) {
-                        sender.sendMessage(player.getName() + "の歩行速度が最大に設定されました。");
-                        player.sendMessage("歩行速度が" + sender.getName() + "によって最大に設定されました。");
+                        sender.sendMessage(player.getName() + "の体力が最大に設定されました。");
+                        player.sendMessage("体力が" + sender.getName() + "によって最大に設定されました。");
                     } else {
-                        sender.sendMessage(player.getName() + "'s walk speed has been set Maximum.");
-                        player.sendMessage("歩行速度が" + sender.getName() + "によって最大に設定されました。");
+                        sender.sendMessage(player.getName() + "'s health has been set Maximum.");
+                        player.sendMessage("体力が" + sender.getName() + "によって最大に設定されました。");
                     }
                 } else {
-                    sender.sendMessage(player.getName() + "'s walk speed has been set Maximum.");
-                    player.sendMessage("歩行速度が" + sender.getName() + "によって最大に設定されました。");
+                    sender.sendMessage(player.getName() + "'s health has been set Maximum.");
+                    player.sendMessage("体力が" + sender.getName() + "によって最大に設定されました。");
                 }
             }
         } else if (sender.getName().equalsIgnoreCase(player.getName())) {
-            sender.sendMessage("The walk speed has been set Maximum.");
+            sender.sendMessage("The health has been set Maximum.");
         } else {
-            sender.sendMessage(player.getName() + "'s walk speed has been set Maximum.");
-            player.sendMessage("The walk speed has been set Maximum by " + sender.getName() + ".");
+            sender.sendMessage(player.getName() + "'s health has been set Maximum.");
+            player.sendMessage("The health has been set Maximum by " + sender.getName() + ".");
         }
     }
 
@@ -334,46 +283,92 @@ public class WalkSpeedCommand implements TabExecutor {
     private static @Nls void sendZeroMessage(@NotNull CommandSender sender, @NotNull Player player) {
         if (player.getLocale().equalsIgnoreCase(LOCALE_JAPANESE)) {
             if (sender.getName().equalsIgnoreCase(player.getName())) {
-                sender.sendMessage("歩行速度が0に設定されました。");
+                sender.sendMessage("体力が0に設定されました。");
             } else {
                 if (sender instanceof Player) {
                     if (((Player) sender).getLocale().equalsIgnoreCase(LOCALE_JAPANESE)) {
-                        sender.sendMessage(player.getName() + "の歩行速度が0に設定されました。");
-                        player.sendMessage("歩行速度が" + sender.getName() + "によって0に設定されました。");
+                        sender.sendMessage(player.getName() + "の体力が0に設定されました。");
+                        player.sendMessage("体力が" + sender.getName() + "によって0に設定されました。");
                     } else {
-                        sender.sendMessage(player.getName() + "'s walk speed has been set 0.");
-                        player.sendMessage("歩行速度が" + sender.getName() + "によって0に設定されました。");
+                        sender.sendMessage(player.getName() + "'s health has been set 0.");
+                        player.sendMessage("体力が" + sender.getName() + "によって0に設定されました。");
                     }
                 } else {
-                    sender.sendMessage(player.getName() + "'s walk speed has been set 0.");
-                    player.sendMessage("歩行速度が" + sender.getName() + "によって0に設定されました。");
+                    sender.sendMessage(player.getName() + "'s health has been set 0.");
+                    player.sendMessage("体力が" + sender.getName() + "によって0に設定されました。");
                 }
             }
         } else if (sender.getName().equalsIgnoreCase(player.getName())) {
-            sender.sendMessage("The walk speed has been set 0.");
+            sender.sendMessage("The health has been set 0.");
         } else {
-            sender.sendMessage(player.getName() + "'s walk speed has been set 0.");
-            player.sendMessage("The walk speed has been set 0 by " + sender.getName() + ".");
+            sender.sendMessage(player.getName() + "'s health has been set 0.");
+            player.sendMessage("The health has been set 0 by " + sender.getName() + ".");
         }
     }
 
     /**
      * (Private Static)<br>
-     * This method send get speed message to sender or sender and player.<br>
+     * This method send set 0 message to sender or sender and player.<br>
      * Localization is required as it is used user-visible string.
      *
      * @param sender CommandSender.
      * @param player Player.
      */
-    private static @Nls void sendGetSpeedMessage(@NotNull CommandSender sender, @NotNull Player player, @NotNull Float speed) {
+    private static @Nls void sendKillMessage(@NotNull CommandSender sender, @NotNull Player player) {
+        if (player.getLocale().equalsIgnoreCase(LOCALE_JAPANESE)) {
+            if (sender.getName().equalsIgnoreCase(player.getName())) {
+                sender.sendMessage(player.getName() + "をキルしました。");
+            } else {
+                if (sender instanceof Player) {
+                    if (((Player) sender).getLocale().equalsIgnoreCase(LOCALE_JAPANESE)) {
+                        sender.sendMessage(player.getName() + "をキルしました。");
+                        player.sendMessage(sender.getName() + "によってキルされました。");
+                    } else {
+                        sender.sendMessage("Killed " + player.getName() + ".");
+                        player.sendMessage(sender.getName() + "によってキルされました。");
+                    }
+                } else {
+                    sender.sendMessage("Killed " + player.getName());
+                    player.sendMessage(sender.getName() + "によってキルされました。");
+                }
+            }
+        } else if (sender.getName().equalsIgnoreCase(player.getName())) {
+            sender.sendMessage("Killed " + player.getName() + ".");
+        } else {
+            sender.sendMessage("Killed " + player.getName() + ".");
+            player.sendMessage(player.getName() + " is killed by " + sender.getName() + ".");
+        }
+    }
+
+    /**
+     * (Private Static)<br>
+     * This method send get health message to sender or sender and player.<br>
+     * Localization is required as it is used user-visible string.
+     *
+     * @param sender CommandSender.
+     * @param player Player.
+     */
+    private static @Nls void sendGetHealthMessage(@NotNull CommandSender sender, @NotNull Player player, @NotNull Double health) {
         if (sender instanceof Player) {
             if (((Player) sender).getLocale().equalsIgnoreCase(LOCALE_JAPANESE)) {
-                sender.sendMessage("歩行速度: " + speed);
+                if (sender.getName().equalsIgnoreCase(player.getName())) {
+                    sender.sendMessage("体力: " + health);
+                } else {
+                    sender.sendMessage(player.getName() + "の体力: " + health);
+                }
             } else {
-                sender.sendMessage("Walk Speed: " + speed);
+                if (sender.getName().equalsIgnoreCase(player.getName())) {
+                    sender.sendMessage("Health: " + health);
+                } else {
+                    sender.sendMessage(player.getName() + "'s Health: " + health);
+                }
             }
         } else {
-            sender.sendMessage("Walk Speed: " + speed);
+            if (sender.getName().equalsIgnoreCase(player.getName())) {
+                sender.sendMessage("Health: " + health);
+            } else {
+                sender.sendMessage(player.getName() + "'s Health: " + health);
+            }
         }
     }
 
@@ -383,8 +378,7 @@ public class WalkSpeedCommand implements TabExecutor {
      * No localization is required as it is used only internally.
      */
     private static final @NonNls List<String> COMMAND_SUGGESTIONS = ImmutableList.of(
-            ARGS_LABEL_DEFAULT, ARGS_LABEL_RESET, ARGS_LABEL_SET, ARGS_LABEL_MIN, ARGS_LABEL_MAX, ARGS_LABEL_ZERO, ARGS_LABEL_ADD, ARGS_LABEL_SUB, ARGS_LABEL_GETSPEED);
-
+            ARGS_LABEL_SET, ARGS_LABEL_MIN, ARGS_LABEL_MAX, ARGS_LABEL_ZERO, ARGS_LABEL_KILL, ARGS_LABEL_ADD, ARGS_LABEL_SUB, ARGS_LABEL_GETHEALTH);
 
     /**
      * (Public)<br>
@@ -415,7 +409,7 @@ public class WalkSpeedCommand implements TabExecutor {
             case 0:
                 if (sender instanceof Player) {
                     player = (Player) sender;
-                    sendGetSpeedMessage(sender, player, player.getWalkSpeed());
+                    sendGetHealthMessage(sender, player, player.getHealth());
                 } else {
                     sender.sendMessage(ERROR_NON_CORRECT_ARGS_MESSAGE);
                 }
@@ -425,7 +419,7 @@ public class WalkSpeedCommand implements TabExecutor {
                 if (player == null) {
                     sender.sendMessage(ERROR_PLAYER_NOT_FOUND_MESSAGE);
                 } else {
-                    sendGetSpeedMessage(sender, player, player.getWalkSpeed());
+                    sendGetHealthMessage(sender, player, player.getHealth());
                 }
                 return true;
             case 2:
@@ -435,72 +429,69 @@ public class WalkSpeedCommand implements TabExecutor {
                     return true;
                 }
                 switch (args[1]) {
-                    case ARGS_LABEL_DEFAULT:
-                    case ARGS_LABEL_RESET:
-                        player.setWalkSpeed(DEFAULT_WALK_SPEED);
-                        sendResetMessage(sender, player);
-                        return true;
                     case ARGS_LABEL_MIN:
-                        player.setWalkSpeed(MINIMUM_WALK_SPEED);
+                        player.setHealth(MINIMUM_HEALTH);
                         sendMinimumMessage(sender, player);
                         return true;
                     case ARGS_LABEL_MAX:
-                        player.setWalkSpeed(MAXIMUM_WALK_SPEED);
+                        player.setHealth(player.getHealthScale());
                         sendMaximumMessage(sender, player);
                         return true;
                     case ARGS_LABEL_ZERO:
-                        player.setWalkSpeed(ZERO_WALK_SPEED);
+                        player.setHealth(ZERO_HEALTH);
                         sendZeroMessage(sender, player);
                         return true;
-                    case ARGS_LABEL_GETSPEED:
-                        sendGetSpeedMessage(sender, player, player.getWalkSpeed());
+                    case ARGS_LABEL_KILL:
+                        player.setHealth(ZERO_HEALTH);
+                        sendKillMessage(sender, player);
+                        return true;
+                    case ARGS_LABEL_GETHEALTH:
+                        sendGetHealthMessage(sender, player, player.getHealth());
                         return true;
                 }
             case 3:
-                BigDecimal beforeSpeed;
-                BigDecimal afterSpeed;
-                BigDecimal calcSpeed;
+                BigDecimal beforeHealth;
+                BigDecimal afterHealth;
+                BigDecimal calcHealth;
 
                 player = Bukkit.getPlayer(args[0]);
                 if (player == null) {
                     sender.sendMessage(ERROR_PLAYER_NOT_FOUND_MESSAGE);
                     return true;
                 }
-                beforeSpeed = BigDecimal.valueOf(player.getWalkSpeed());
+                beforeHealth = BigDecimal.valueOf(player.getHealth());
                 try {
-                    calcSpeed = BigDecimal.valueOf(Float.parseFloat(args[2]));
+                    calcHealth = BigDecimal.valueOf(Double.parseDouble(args[2]));
                 } catch (NumberFormatException e) {
                     sender.sendMessage(ERROR_NON_CORRECT_ARGS_MESSAGE);
                     return true;
                 }
-                if (calcSpeed.floatValue() < 0 || calcSpeed.floatValue() > 1) {
+                if (calcHealth.doubleValue() < 0 || calcHealth.doubleValue() > player.getHealthScale()) {
                     sender.sendMessage(ERROR_NON_CORRECT_ARGS_MESSAGE);
                     return true;
                 }
                 switch (args[1]) {
                     case ARGS_LABEL_SET:
-                        player.setWalkSpeed(calcSpeed.floatValue());
-                        sendSetMessage(sender, player, beforeSpeed.floatValue(), calcSpeed.floatValue());
+                        player.setHealth(calcHealth.doubleValue());
+                        sendSetMessage(sender, player, beforeHealth.doubleValue(), calcHealth.doubleValue());
                         return true;
                     case ARGS_LABEL_ADD:
-                        afterSpeed = beforeSpeed.add(calcSpeed);
-                        if (afterSpeed.intValue() < 0) {
-                            afterSpeed = BigDecimal.valueOf(0);
-                        } else if (afterSpeed.floatValue() > 1) {
-                            afterSpeed = BigDecimal.valueOf(1);
+                        afterHealth = beforeHealth.add(calcHealth);
+                        if (afterHealth.doubleValue() < 0) {
+                            afterHealth = BigDecimal.valueOf(0);
+                        } else if (calcHealth.doubleValue() > player.getHealthScale()) {
+
                         }
-                        player.setWalkSpeed(afterSpeed.floatValue());
-                        sendSetMessage(sender, player, beforeSpeed.floatValue(), afterSpeed.floatValue());
+                        player.setHealth(afterHealth.doubleValue());
+                        sendSetMessage(sender, player, beforeHealth.doubleValue(), calcHealth.doubleValue());
                         return true;
                     case ARGS_LABEL_SUB:
-                        afterSpeed = beforeSpeed.subtract(calcSpeed);
-                        if (afterSpeed.intValue() < 0) {
-                            afterSpeed = BigDecimal.valueOf(0);
-                        } else if (afterSpeed.floatValue() > 1) {
-                            afterSpeed = BigDecimal.valueOf(1);
+                        afterHealth = beforeHealth.subtract(calcHealth);
+                        if (afterHealth.doubleValue() < 0 || calcHealth.doubleValue() > player.getHealthScale()) {
+                            afterHealth = BigDecimal.valueOf(0);
                         }
-                        player.setWalkSpeed(afterSpeed.floatValue());
-                        sendSetMessage(sender, player, beforeSpeed.floatValue(), afterSpeed.floatValue());
+                        player.setHealth(afterHealth.doubleValue());
+                        sendSetMessage(sender, player, beforeHealth.doubleValue(), calcHealth.doubleValue());
                         return true;
                 }
         }

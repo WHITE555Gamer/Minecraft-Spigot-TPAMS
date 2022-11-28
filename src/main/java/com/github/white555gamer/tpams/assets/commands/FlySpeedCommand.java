@@ -28,31 +28,31 @@ import static org.bukkit.Bukkit.getServer;
 public class FlySpeedCommand implements TabExecutor {
 
     /**
-     * (Public Static Final)<br>
+     * (Public Static)<br>
      * This Class's Name.
      *
      * @return This Class Name.
      */
-    public static final @NonNls String name() {
+    public static @NonNls String name() {
         return "FlySpeedCommand";
     }
 
     /**
-     * (Public Static Final)<br>
+     * (Public Static)<br>
      * This Class's Command Name.
      *
      * @return This Class's Command Name.
      */
-    public static final @NonNls String commandName() {
+    public static @NonNls String commandName() {
         return "flyspeed";
     }
 
     /**
-     * (Private Static)<br>
+     * (Private Static Final)<br>
      * This Class's Instance.<br>
      * It can get with getInstance Method Only.
      */
-    private static FlySpeedCommand instance = new FlySpeedCommand();
+    private static final FlySpeedCommand instance = new FlySpeedCommand();
 
     /**
      * (Private)<br>
@@ -194,7 +194,7 @@ public class FlySpeedCommand implements TabExecutor {
      */
     private static @Nls void sendResetMessage(@NotNull CommandSender sender, @NotNull Player player) {
         if (player.getLocale().equalsIgnoreCase(LOCALE_JAPANESE)) {
-            if (sender.getName() == player.getName()) {
+            if (sender.getName().equalsIgnoreCase(player.getName())) {
                 sender.sendMessage("飛行速度が初期化されました。");
             } else {
                 if (sender instanceof Player) {
@@ -210,7 +210,7 @@ public class FlySpeedCommand implements TabExecutor {
                     player.sendMessage("飛行速度が" + sender.getName() + "によって初期化されました。");
                 }
             }
-        } else if (sender.getName() == player.getName()) {
+        } else if (sender.getName().equalsIgnoreCase(player.getName())) {
             sender.sendMessage("The flight speed has been reset.");
         } else {
             sender.sendMessage(player.getName() + "'s flight speed has been reset.");
@@ -230,7 +230,7 @@ public class FlySpeedCommand implements TabExecutor {
      */
     private static @Nls void sendSetMessage(@NotNull CommandSender sender, @NotNull Player player, @NotNull Float beforeSpeed, @NotNull Float afterSpeed) {
         if (player.getLocale().equalsIgnoreCase(LOCALE_JAPANESE)) {
-            if (sender.getName() == player.getName()) {
+            if (sender.getName().equalsIgnoreCase(player.getName())) {
                 sender.sendMessage("飛行速度が" + beforeSpeed + "から" + afterSpeed + "に設定されました。");
             } else {
                 if (sender instanceof Player) {
@@ -246,7 +246,7 @@ public class FlySpeedCommand implements TabExecutor {
                     player.sendMessage("飛行速度が" + sender.getName() + "によって" + beforeSpeed + "から" + afterSpeed + "に設定されました。");
                 }
             }
-        } else if (sender.getName() == player.getName()) {
+        } else if (sender.getName().equalsIgnoreCase(player.getName())) {
             sender.sendMessage("The flight speed has been set " + afterSpeed + " from " + beforeSpeed + ".");
         } else {
             sender.sendMessage(player.getName() + "'s flight speed has been set " + afterSpeed + " from " + beforeSpeed + ".");
@@ -264,7 +264,7 @@ public class FlySpeedCommand implements TabExecutor {
      */
     private static @Nls void sendMinimumMessage(@NotNull CommandSender sender, @NotNull Player player) {
         if (player.getLocale().equalsIgnoreCase(LOCALE_JAPANESE)) {
-            if (sender.getName() == player.getName()) {
+            if (sender.getName().equalsIgnoreCase(player.getName())) {
                 sender.sendMessage("飛行速度が最小に設定されました。");
             } else {
                 if (sender instanceof Player) {
@@ -280,7 +280,7 @@ public class FlySpeedCommand implements TabExecutor {
                     player.sendMessage("飛行速度が" + sender.getName() + "によって最小に設定されました。");
                 }
             }
-        } else if (sender.getName() == player.getName()) {
+        } else if (sender.getName().equalsIgnoreCase(player.getName())) {
             sender.sendMessage("The flight speed has been set Minimum.");
         } else {
             sender.sendMessage(player.getName() + "'s flight speed has been set Minimum.");
@@ -298,7 +298,7 @@ public class FlySpeedCommand implements TabExecutor {
      */
     private static @Nls void sendMaximumMessage(@NotNull CommandSender sender, @NotNull Player player) {
         if (player.getLocale().equalsIgnoreCase(LOCALE_JAPANESE)) {
-            if (sender.getName() == player.getName()) {
+            if (sender.getName().equalsIgnoreCase(player.getName())) {
                 sender.sendMessage("飛行速度が最大に設定されました。");
             } else {
                 if (sender instanceof Player) {
@@ -314,7 +314,7 @@ public class FlySpeedCommand implements TabExecutor {
                     player.sendMessage("飛行速度が" + sender.getName() + "によって最大に設定されました。");
                 }
             }
-        } else if (sender.getName() == player.getName()) {
+        } else if (sender.getName().equalsIgnoreCase(player.getName())) {
             sender.sendMessage("The flight speed has been set Maximum.");
         } else {
             sender.sendMessage(player.getName() + "'s flight speed has been set Maximum.");
@@ -332,7 +332,7 @@ public class FlySpeedCommand implements TabExecutor {
      */
     private static @Nls void sendZeroMessage(@NotNull CommandSender sender, @NotNull Player player) {
         if (player.getLocale().equalsIgnoreCase(LOCALE_JAPANESE)) {
-            if (sender.getName() == player.getName()) {
+            if (sender.getName().equalsIgnoreCase(player.getName())) {
                 sender.sendMessage("飛行速度が0に設定されました。");
             } else {
                 if (sender instanceof Player) {
@@ -348,7 +348,7 @@ public class FlySpeedCommand implements TabExecutor {
                     player.sendMessage("飛行速度が" + sender.getName() + "によって0に設定されました。");
                 }
             }
-        } else if (sender.getName() == player.getName()) {
+        } else if (sender.getName().equalsIgnoreCase(player.getName())) {
             sender.sendMessage("The flight speed has been set 0.");
         } else {
             sender.sendMessage(player.getName() + "'s flight speed has been set 0.");
@@ -367,12 +367,24 @@ public class FlySpeedCommand implements TabExecutor {
     private static @Nls void sendGetSpeedMessage(@NotNull CommandSender sender, @NotNull Player player, @NotNull Float speed) {
         if (sender instanceof Player) {
             if (((Player) sender).getLocale().equalsIgnoreCase(LOCALE_JAPANESE)) {
-                sender.sendMessage("飛行速度: " + speed);
+                if (sender.getName().equalsIgnoreCase(player.getName())) {
+                    sender.sendMessage("飛行速度: " + speed);
+                } else {
+                    sender.sendMessage(player.getName() + "の飛行速度: " + speed);
+                }
             } else {
-                sender.sendMessage("Flight Speed: " + speed);
+                if (sender.getName().equalsIgnoreCase(player.getName())) {
+                    sender.sendMessage("Flight Speed: " + speed);
+                } else {
+                    sender.sendMessage(player.getName() + "'s Flight Speed: " + speed);
+                }
             }
         } else {
-            sender.sendMessage("Flight Speed: " + speed);
+            if (sender.getName().equalsIgnoreCase(player.getName())) {
+                sender.sendMessage("Flight Speed: " + speed);
+            } else {
+                sender.sendMessage(player.getName() + "'s Flight Speed: " + speed);
+            }
         }
     }
 
@@ -449,6 +461,7 @@ public class FlySpeedCommand implements TabExecutor {
                     case ARGS_LABEL_ZERO:
                         player.setFlySpeed(ZERO_FLIGHT_SPEED);
                         sendZeroMessage(sender, player);
+                        return true;
                     case ARGS_LABEL_GETSPEED:
                         sendGetSpeedMessage(sender, player, player.getFlySpeed());
                         return true;
@@ -520,9 +533,9 @@ public class FlySpeedCommand implements TabExecutor {
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
             if (args[0].length() == 0) {
-                return getServer().getOnlinePlayers().stream().map(Player::getName).map(s -> s.toLowerCase()).collect(Collectors.toList());
+                return getServer().getOnlinePlayers().stream().map(Player::getName).map(String::toLowerCase).collect(Collectors.toList());
             } else {
-                return getServer().getOnlinePlayers().stream().map(Player::getName).map(s -> s.toLowerCase()).filter(s -> s.startsWith(args[0].toLowerCase())).collect(Collectors.toList());
+                return getServer().getOnlinePlayers().stream().map(Player::getName).map(String::toLowerCase).filter(s -> s.startsWith(args[0].toLowerCase())).collect(Collectors.toList());
             }
         } else if (args.length == 2) {
             if (args[1].length() == 0) {

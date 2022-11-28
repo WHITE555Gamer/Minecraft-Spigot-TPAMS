@@ -6,6 +6,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.TabExecutor;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -13,8 +14,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.github.white555gamer.tpams.assets.constants.ConstantProperty.ERROR_NON_CORRECT_ARGS_MESSAGE;
-import static com.github.white555gamer.tpams.assets.constants.ConstantProperty.ERROR_PLAYER_NON_EXECUTABLE_MESSAGE;
+import static com.github.white555gamer.tpams.assets.constants.ConstantProperty.*;
 import static org.bukkit.ChatColor.*;
 
 /**
@@ -26,31 +26,31 @@ import static org.bukkit.ChatColor.*;
 public class TPAMSCommand implements TabExecutor {
 
     /**
-     * (Public Static Final)<br>
+     * (Public Static)<br>
      * This Class's Name.
      *
      * @return This Class's Name.
      */
-    public static final @NonNls String name() {
+    public static @NonNls String name() {
         return "TPAMSCommand";
     }
 
     /**
-     * (Public Static Final)<br>
+     * (Public Static)<br>
      * This Class's Command Name.
      *
      * @return This Class's Command Name.
      */
-    public static final @NonNls String commandName() {
+    public static @NonNls String commandName() {
         return "tpams";
     }
 
     /**
-     * (Private Static)<br>
+     * (Private Static Final)<br>
      * This Class's Instance.<br>
      * It can get with getInstance Method Only.
      */
-    private static TPAMSCommand instance = new TPAMSCommand();
+    private static final TPAMSCommand instance = new TPAMSCommand();
 
     /**
      * (Private)<br>
@@ -114,6 +114,18 @@ public class TPAMSCommand implements TabExecutor {
      * No localization is required as it is used only internally.
      */
     private static final @NonNls String FLYSPEED_COMMAND_NAME = FlySpeedCommand.commandName();
+    /**
+     * (Private Static Final)<br>
+     * Health Command Name String Label.<br>
+     * No localization is required as it is used only internally.
+     */
+    private static final @NonNls String HEALTH_COMMAND_NAME = HealthCommand.commandName();
+    /**
+     * (Private Static Final)<br>
+     * HealthScale Command Name String Label.<br>
+     * No localization is required as it is used only internally.
+     */
+    private static final @NonNls String HEALTHSCALE_COMMAND_NAME = HealthScaleCommand.commandName();
     /**
      * (Private Static Final)<br>
      * OldGameMode Command Name String Label.<br>
@@ -181,6 +193,24 @@ public class TPAMSCommand implements TabExecutor {
             "/flyspeed < Player > < reset | set | min | max | zero | add | sub | getspeed >\n" +
             YELLOW + "description" + RESET + ": |\n" +
             "This command allows you to set flight speed.";
+    /**
+     * (Private Static Final)<br>
+     * Health Command Help String.<br>
+     * No localization is required.
+     */
+    private static final @NonNls String HEALTH_COMMAND_HELP = YELLOW + "usage" + RESET + ": |\n" +
+            "/health < PlayerName > < set | kill | min | max | add | sub | gethealth > < 0 or more >\n" +
+            YELLOW + "description" + RESET + ": |\n" +
+            "This command allows you to change health.";
+    /**
+     * (Private Static Final)<br>
+     * HealthScale Command Help String.<br>
+     * No localization is required.
+     */
+    private static final @NonNls String HEALTHSCALE_COMMAND_HELP = YELLOW + "usage" + RESET + ": |\n" +
+            "/healthscale < PlayerName > < default | reset | set | min | add | sub | gethealthscale > < 1 or more >\n" +
+            YELLOW + "description" + RESET + ": |\n" +
+            "This command allows you to change health scale.";
     /**
      * (Private Static Final)<br>
      * OldGameMode Command Help String.<br>
@@ -488,6 +518,11 @@ public class TPAMSCommand implements TabExecutor {
         }
     }
 
+    /**
+     * (Private Static)<br>
+     * Trans Boolean to Active or Inactive String.<br>
+     * No localization is required.
+     */
     private static @NonNls String transBoolean2Active(@NotNull Boolean bool) {
         if (bool) {
             return "Active";
@@ -496,6 +531,11 @@ public class TPAMSCommand implements TabExecutor {
         }
     }
 
+    /**
+     * (Private Static)<br>
+     * Trans String to Boolean.<br>
+     * No localization is required.
+     */
     private static @NonNls Boolean transString2Boolean(@NotNull String string) {
         Boolean isActive;
         switch (string) {
@@ -512,8 +552,21 @@ public class TPAMSCommand implements TabExecutor {
         return isActive;
     }
 
+    /**
+     * (Private Static)<br>
+     * Trans String to Boolean.<br>
+     * Localization is required as it is used user-visible string.
+     */
     private static @NonNls void sendPageNotFoundMessage(@NotNull CommandSender sender, @NotNull Integer integer) {
-        sender.sendMessage("Page Not Found. ( 1 ~ " + integer + " )");
+        if (sender instanceof Player) {
+            if (((Player) sender).getLocale().equalsIgnoreCase(LOCALE_JAPANESE)) {
+                sender.sendMessage("ページが存在しません。 ( 1 ~ " + integer + " )");
+            } else {
+                sender.sendMessage("Page Not Found. ( 1 ~ " + integer + " )");
+            }
+        } else {
+            sender.sendMessage("Page Not Found. ( 1 ~ " + integer + " )");
+        }
     }
 
     /**
@@ -528,8 +581,8 @@ public class TPAMSCommand implements TabExecutor {
      * No localization is required as it is used only internally.
      */
     private static final @NonNls List<String> TPAMS_COMMANDS_LIST =
-            ImmutableList.of(BROADCASTMESSAGE_COMMAND_NAME, FLY_COMMAND_NAME, FLYSPEED_COMMAND_NAME, OLDGAMEMODE_COMMAND_NAME, SNEAK_COMMAND_NAME,
-                    TPAMS_COMMAND_NAME, WALKSPEED_COMMAND_NAME);
+            ImmutableList.of(BROADCASTMESSAGE_COMMAND_NAME, FLY_COMMAND_NAME, FLYSPEED_COMMAND_NAME, HEALTH_COMMAND_NAME, HEALTHSCALE_COMMAND_HELP, OLDGAMEMODE_COMMAND_NAME,
+                    SNEAK_COMMAND_NAME, TPAMS_COMMAND_NAME, WALKSPEED_COMMAND_NAME);
     /**
      * (Private Static Final)<br>
      * TPAMS Versions List.<br>
@@ -569,6 +622,10 @@ public class TPAMSCommand implements TabExecutor {
             case 1:
                 if (args[0].equalsIgnoreCase(ARGS_LABEL_PING)) {
                     sender.sendMessage("[TPAMS] Pong!");
+                    if (sender instanceof Player) {
+                        ((Player) sender).setHealthScaled(!((Player) sender).isHealthScaled());
+                        ((Player) sender).sendMessage(String.valueOf(((Player) sender).isHealthScaled()));
+                    }
                 } else {
                     sender.sendMessage(ERROR_NON_CORRECT_ARGS_MESSAGE);
                 }
@@ -582,6 +639,10 @@ public class TPAMSCommand implements TabExecutor {
                             sender.sendMessage("Fly Command Status: " + transBoolean2Active(FlyCommand.getActive()));
                         } else if (args[1].equalsIgnoreCase(FLYSPEED_COMMAND_NAME)) {
                             sender.sendMessage("FlySpeed Command Status: " + transBoolean2Active(FlySpeedCommand.getActive()));
+                        } else if (args[1].equalsIgnoreCase(HEALTH_COMMAND_NAME)) {
+                            sender.sendMessage("Health Command Status: " + transBoolean2Active(HealthCommand.getActive()));
+                        } else if (args[1].equalsIgnoreCase(HEALTHSCALE_COMMAND_NAME)) {
+                            sender.sendMessage("HealthScale Command Status: " + transBoolean2Active(HealthScaleCommand.getActive()));
                         } else if (args[1].equalsIgnoreCase(OLDGAMEMODE_COMMAND_NAME)) {
                             sender.sendMessage("OldGameMode Command Status: " + transBoolean2Active(OldGameModeCommand.getActive()));
                         } else if (args[1].equalsIgnoreCase(SNEAK_COMMAND_NAME)) {
@@ -604,6 +665,10 @@ public class TPAMSCommand implements TabExecutor {
                         sender.sendMessage(FLY_COMMAND_HELP);
                     } else if (args[1].equalsIgnoreCase(FLYSPEED_COMMAND_NAME)) {
                         sender.sendMessage(FLYSPEED_COMMAND_HELP);
+                    } else if (args[1].equalsIgnoreCase(HEALTH_COMMAND_NAME)) {
+                        sender.sendMessage(HEALTH_COMMAND_HELP);
+                    } else if (args[1].equalsIgnoreCase(HEALTHSCALE_COMMAND_NAME)) {
+                        sender.sendMessage(HEALTHSCALE_COMMAND_HELP);
                     } else if (args[1].equalsIgnoreCase(OLDGAMEMODE_COMMAND_NAME)) {
                         sender.sendMessage(OLDGAMEMODE_COMMAND_HELP);
                     } else if (args[1].equalsIgnoreCase(SNEAK_COMMAND_NAME)) {
@@ -636,6 +701,12 @@ public class TPAMSCommand implements TabExecutor {
                         } else if (args[1].equalsIgnoreCase(FLYSPEED_COMMAND_NAME)) {
                             FlySpeedCommand.setActive(isActive);
                             sender.sendMessage("FlySpeed Command Status: " + transBoolean2Active(FlySpeedCommand.getActive()));
+                        } else if (args[1].equalsIgnoreCase(HEALTH_COMMAND_NAME)) {
+                            HealthCommand.setActive(isActive);
+                            sender.sendMessage("Health Command Status: " + transBoolean2Active(HealthCommand.getActive()));
+                        } else if (args[1].equalsIgnoreCase(HEALTHSCALE_COMMAND_NAME)) {
+                            HealthScaleCommand.setActive(isActive);
+                            sender.sendMessage("HealthScale Command Status: " + transBoolean2Active(HealthScaleCommand.getActive()));
                         } else if (args[1].equalsIgnoreCase(OLDGAMEMODE_COMMAND_NAME)) {
                             OldGameModeCommand.setActive(isActive);
                             sender.sendMessage("OldGameMode Command Status: " + transBoolean2Active(OldGameModeCommand.getActive()));
@@ -783,15 +854,14 @@ public class TPAMSCommand implements TabExecutor {
                 } else if (args[0].equalsIgnoreCase(ARGS_LABEL_CHANGELOG)) {
                     return TPAMS_VERSIONS_LIST;
                 }
-                return ImmutableList.of();
             } else {
                 if (args[0].equalsIgnoreCase(ARGS_LABEL_ACTIVE) | args[0].equalsIgnoreCase(ARGS_LABEL_HELP)) {
                     return TPAMS_COMMANDS_LIST.stream().filter(s -> s.startsWith(args[1].toLowerCase())).collect(Collectors.toList());
                 } else if (args[0].equalsIgnoreCase(ARGS_LABEL_CHANGELOG)) {
                     return NUMBER_SUGGESTIONS.stream().filter(s -> s.startsWith(args[1].toLowerCase())).collect(Collectors.toList());
                 }
-                return ImmutableList.of();
             }
+            return ImmutableList.of();
         } else if (args.length == 3) {
             if (args[2].length() == 0) {
                 if (args[0].equalsIgnoreCase(ARGS_LABEL_ACTIVE)) {
